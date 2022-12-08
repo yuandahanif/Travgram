@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import app from "@config/firebase";
@@ -16,6 +22,8 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     error: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const signIn = async () => {
     if (value.email === "" || value.password === "") {
       setValue({
@@ -24,6 +32,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       });
       return;
     }
+    setIsLoading(true);
 
     try {
       await createUserWithEmailAndPassword(auth, value.email, value.password);
@@ -33,6 +42,8 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         ...value,
         error: error?.message,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -48,36 +59,42 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           Daftar
         </Text>
 
-        <TextInput
-          placeholder="Email"
-          style={styles.input}
-          value={value.email}
-          onChangeText={(text) => setValue({ ...value, email: text })}
-        />
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <>
+            <TextInput
+              placeholder="Email"
+              style={styles.input}
+              value={value.email}
+              onChangeText={(text) => setValue({ ...value, email: text })}
+            />
 
-        <TextInput
-          placeholder="Password"
-          style={styles.input}
-          value={value.password}
-          onChangeText={(text) => setValue({ ...value, password: text })}
-          secureTextEntry={true}
-        />
+            <TextInput
+              placeholder="Password"
+              style={styles.input}
+              value={value.password}
+              onChangeText={(text) => setValue({ ...value, password: text })}
+              secureTextEntry={true}
+            />
 
-        <Pressable onPress={signIn} style={styles.button}>
-          <Text style={styles.buttonText}>Daftar</Text>
-        </Pressable>
+            <Pressable onPress={signIn} style={styles.button}>
+              <Text style={styles.buttonText}>Daftar</Text>
+            </Pressable>
 
-        <View style={styles.changeScreenText}>
-          <Text style={styles.textWhite}>Sudah Punya Akun?</Text>
-          <Pressable onPress={toSignInScreen}>
-            <Text style={styles.textBlue}> Masuk</Text>
-          </Pressable>
-        </View>
+            <View style={styles.changeScreenText}>
+              <Text style={styles.textWhite}>Sudah Punya Akun?</Text>
+              <Pressable onPress={toSignInScreen}>
+                <Text style={styles.textBlue}> Masuk</Text>
+              </Pressable>
+            </View>
 
-        {!!value.error && (
-          <View style={styles.error}>
-            <Text>{value.error}</Text>
-          </View>
+            {!!value.error && (
+              <View style={styles.error}>
+                <Text>{value.error}</Text>
+              </View>
+            )}
+          </>
         )}
       </View>
     </View>
@@ -118,7 +135,7 @@ export const styles = StyleSheet.create({
   },
 
   error: {
-    marginTop: 10,
+    marginTop: 40,
     padding: 10,
     color: "#fff",
     backgroundColor: "#D54826FF",
