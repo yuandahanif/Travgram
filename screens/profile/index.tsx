@@ -16,7 +16,7 @@ export default function ProfileScreen({}) {
         <Image source={PlaceholderImage} style={styles.image} />
       )}
 
-      <Text style={textStyle.textWhite}>{user?.email}</Text>
+      <Text style={textStyle.textWhite}>{user?.displayName || user?.email}</Text>
     </View>
   );
 }

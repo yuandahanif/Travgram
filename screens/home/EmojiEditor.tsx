@@ -13,11 +13,10 @@ import EmojiList from "@components/Emoji/EmojiList";
 import EmojiSticker from "@components/Emoji/EmojiSticker";
 import { captureRef } from "react-native-view-shot";
 import { COLORS } from "@config/constant";
-import SearchHeader from "@components/header/SearchBar";
 
 const PlaceholderImage = require("@assets/splash.png");
 
-export default function HomeScreen({}) {
+export default function EmojiEditor({}) {
   const imageRef = useRef<View>(null);
   const [status, requestPermission] = MediaLibrary.usePermissions();
   const [selectedImage, setSelectedImage] = useState<null | string>(null);
@@ -74,11 +73,51 @@ export default function HomeScreen({}) {
   };
 
   return (
-    <View style={styles.container}>
-      <SearchHeader />
+    <GestureHandlerRootView style={styles.container}>
+      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
+      </EmojiPicker>
 
-      <View></View>
-    </View>
+      <View style={styles.imageContainer} ref={imageRef} collapsable={false}>
+        <ImageViewer
+          placeholderImageSource={PlaceholderImage}
+          selectedImage={selectedImage}
+        />
+        {pickedEmoji !== null ? (
+          <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
+        ) : null}
+      </View>
+
+      {/* <View style={{ marginBottom: 10 }}>
+          <Text>GambarApp</Text>
+        </View> */}
+
+      {showAppOptions ? (
+        <View style={styles.optionsContainer}>
+          <View style={styles.optionsRow}>
+            <IconButton icon="refresh" label="Reset" onPress={onReset} />
+            <CircleButton onPress={onAddSticker} />
+            <IconButton
+              icon="save-alt"
+              label="Save"
+              onPress={onSaveImageAsync}
+            />
+          </View>
+        </View>
+      ) : (
+        <View style={styles.footerContainer}>
+          <Button
+            theme="primary"
+            label="Choose a photo"
+            onPress={pickImageAsync}
+          />
+          <Button
+            label="Use this photo"
+            onPress={() => setShowAppOptions(true)}
+          />
+        </View>
+      )}
+    </GestureHandlerRootView>
   );
 }
 
