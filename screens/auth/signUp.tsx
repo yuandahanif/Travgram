@@ -13,6 +13,8 @@ import { useState } from "react";
 import { COLORS } from "@config/constant";
 import { StackScreenProps } from "@react-navigation/stack";
 
+import textStyle from "@styles/text.style";
+
 const auth = getAuth(app);
 
 const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
@@ -83,9 +85,9 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
             </Pressable>
 
             <View style={styles.changeScreenText}>
-              <Text style={styles.textWhite}>Sudah Punya Akun?</Text>
+              <Text style={textStyle.textWhite}>Sudah Punya Akun?</Text>
               <Pressable onPress={toSignInScreen}>
-                <Text style={styles.textBlue}> Masuk</Text>
+                <Text style={textStyle.textBlue}> Masuk</Text>
               </Pressable>
             </View>
 
@@ -108,8 +110,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "#121212",
   },
-  textWhite: { color: COLORS.white },
-  textBlue: { color: COLORS["blue-main"] },
   textTitle: {
     marginBottom: 200,
     color: COLORS["white"],

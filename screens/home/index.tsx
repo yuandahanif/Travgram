@@ -12,6 +12,7 @@ import EmojiPicker from "@components/Emoji/EmojiPicker";
 import EmojiList from "@components/Emoji/EmojiList";
 import EmojiSticker from "@components/Emoji/EmojiSticker";
 import { captureRef } from "react-native-view-shot";
+import { COLORS } from "@config/constant";
 
 const PlaceholderImage = require("@assets/splash.png");
 
@@ -123,7 +124,7 @@ export default function HomeScreen({}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: COLORS["dark-main"],
     alignItems: "center",
   },
   imageContainer: {

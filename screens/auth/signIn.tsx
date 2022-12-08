@@ -6,6 +6,7 @@ import { Pressable } from "react-native";
 import { useState } from "react";
 import { styles } from "@screens/auth/signUp";
 import { StackScreenProps } from "@react-navigation/stack";
+import textStyle from "@styles/text.style";
 
 const auth = getAuth(app);
 
@@ -67,9 +68,9 @@ export default function SignInScreen({ navigation }: StackScreenProps<any>) {
         </Pressable>
 
         <View style={styles.changeScreenText}>
-          <Text style={styles.textWhite}>Belum Punya Akun?</Text>
+          <Text style={textStyle.textWhite}>Belum Punya Akun?</Text>
           <Pressable onPress={toSignInScreen}>
-            <Text style={styles.textBlue}> Daftar</Text>
+            <Text style={textStyle.textBlue}> Daftar</Text>
           </Pressable>
         </View>
 

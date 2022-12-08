@@ -9,6 +9,9 @@ export default {
     orientation: "portrait",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
+    eas: {
+      projectId: "6a9441f7-11de-48ae-8393-3a8a82d0cd7c",
+    },
     splash: {
       image: "./assets/splash.png",
       resizeMode: "contain",
