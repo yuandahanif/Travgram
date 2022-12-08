@@ -1,15 +1,15 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "@config/firebase";
 import { Pressable } from "react-native";
 import { useState } from "react";
-
-const PlaceholderImage = require("@assets/splash.png");
+import { styles } from "@screens/auth/signUp";
+import { StackScreenProps } from "@react-navigation/stack";
 
 const auth = getAuth(app);
 
-export default function SignInScreen({}) {
+export default function SignInScreen({ navigation }: StackScreenProps<any>) {
   const [value, setValue] = useState({
     email: "",
     password: "",
@@ -20,7 +20,7 @@ export default function SignInScreen({}) {
     if (value.email === "" || value.password === "") {
       setValue({
         ...value,
-        error: "Email and password are mandatory.",
+        error: "Email dan Password Harus Di isi.",
       });
       return;
     }
@@ -35,64 +35,50 @@ export default function SignInScreen({}) {
     }
   };
 
+  const toSignInScreen = () => {
+    navigation.navigate("Sign Up");
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Signin screen!</Text>
-
-      {!!value.error && (
-        <View style={styles.error}>
-          <Text>{value.error}</Text>
-        </View>
-      )}
-
       <View style={styles.controls}>
+        <Text style={[styles.textTitle, { marginBottom: 10 }]}>Travgram</Text>
+        <Text style={[styles.textTitle, { fontSize: 26, fontWeight: "400" }]}>
+          Masuk
+        </Text>
+
         <TextInput
           placeholder="Email"
+          style={styles.input}
           value={value.email}
           onChangeText={(text) => setValue({ ...value, email: text })}
         />
 
         <TextInput
           placeholder="Password"
+          style={styles.input}
           value={value.password}
           onChangeText={(text) => setValue({ ...value, password: text })}
           secureTextEntry={true}
         />
 
-        <Pressable
-          onPress={signIn}
-          style={{
-            width: "100%",
-            backgroundColor: 'red',
-            padding: 20,
-          }}
-        >
-          <Text>Masuk</Text>
+        <Pressable onPress={signIn} style={styles.button}>
+          <Text style={styles.buttonText}>Masuk</Text>
         </Pressable>
+
+        <View style={styles.changeScreenText}>
+          <Text style={styles.textWhite}>Belum Punya Akun?</Text>
+          <Pressable onPress={toSignInScreen}>
+            <Text style={styles.textBlue}> Daftar</Text>
+          </Pressable>
+        </View>
+
+        {!!value.error && (
+          <View style={styles.error}>
+            <Text>{value.error}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    backgroundColor: "#121212",
-  },
-
-  controls: {
-    flex: 1,
-    width: "100%",
-    position: "absolute",
-    bottom: 80,
-    marginHorizontal: 20,
-  },
-
-  error: {
-    marginTop: 10,
-    padding: 10,
-    color: "#fff",
-    backgroundColor: "#D54826FF",
-  },
-});

@@ -24,6 +24,15 @@ export default function UserTab() {
           }}
         />
         <Tab.Screen
+          name="Jelajah"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="map-outline" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
           name="Profile"
           component={ProfileScreen}
           options={{
