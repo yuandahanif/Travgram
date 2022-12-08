@@ -14,6 +14,7 @@ import { COLORS } from "@config/constant";
 import { StackScreenProps } from "@react-navigation/stack";
 
 import textStyle from "@styles/text.style";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const auth = getAuth(app);
 
@@ -54,7 +55,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.controls}>
         <Text style={[styles.textTitle, { marginBottom: 10 }]}>Travgram</Text>
         <Text style={[styles.textTitle, { fontSize: 26, fontWeight: "400" }]}>
@@ -85,7 +86,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
             </Pressable>
 
             <View style={styles.changeScreenText}>
-              <Text style={textStyle.textWhite}>Sudah Punya Akun?</Text>
+              <Text style={textStyle.textMain}>Sudah Punya Akun?</Text>
               <Pressable onPress={toSignInScreen}>
                 <Text style={textStyle.textBlue}> Masuk</Text>
               </Pressable>
@@ -99,7 +100,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           </>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 export default SignUpScreen;

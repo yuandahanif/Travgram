@@ -1,12 +1,13 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { NavigationContainer, DarkTheme } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import HomeScreen from "@screens/home";
 import ProfileScreen from "@screens/profile";
 import SettingScreen from "@screens/profile/setting";
+import { COLORS } from "@config/constant";
 
 const Drawer = createDrawerNavigator();
 
@@ -26,14 +27,13 @@ const Tab = createBottomTabNavigator();
 
 export default function UserTab() {
   return (
-    <NavigationContainer theme={DarkTheme}>
-      {/* <StatusBar style="auto" /> */}
-
+    <NavigationContainer theme={DefaultTheme}>
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen
           name="Home"
           component={HomeScreen}
           options={{
+            tabBarActiveTintColor: COLORS["blue-main"],
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="home" color={color} size={size} />
             ),

@@ -3,9 +3,18 @@ import { useAuthentication } from "@utils/useAuthentication";
 import AuthStack from "@navigation/authStack";
 import UserTab from "@navigation/userTab";
 import "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const { user } = useAuthentication();
 
-  return user ? <UserTab /> : <AuthStack />;
+  return (
+    <>
+      <SafeAreaProvider>
+        <StatusBar style="auto" />
+        {user ? <UserTab /> : <AuthStack />}
+      </SafeAreaProvider>
+    </>
+  );
 }

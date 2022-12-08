@@ -124,7 +124,7 @@ export default function EmojiEditor({}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS["dark-main"],
+    backgroundColor: COLORS["bg-main"],
     alignItems: "center",
   },
   imageContainer: {

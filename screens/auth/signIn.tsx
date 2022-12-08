@@ -7,6 +7,7 @@ import { useState } from "react";
 import { styles } from "@screens/auth/signUp";
 import { StackScreenProps } from "@react-navigation/stack";
 import textStyle from "@styles/text.style";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const auth = getAuth(app);
 
@@ -41,7 +42,7 @@ export default function SignInScreen({ navigation }: StackScreenProps<any>) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.controls}>
         <Text style={[styles.textTitle, { marginBottom: 10 }]}>Travgram</Text>
         <Text style={[styles.textTitle, { fontSize: 26, fontWeight: "400" }]}>
@@ -68,7 +69,7 @@ export default function SignInScreen({ navigation }: StackScreenProps<any>) {
         </Pressable>
 
         <View style={styles.changeScreenText}>
-          <Text style={textStyle.textWhite}>Belum Punya Akun?</Text>
+          <Text style={textStyle.textMain}>Belum Punya Akun?</Text>
           <Pressable onPress={toSignInScreen}>
             <Text style={textStyle.textBlue}> Daftar</Text>
           </Pressable>
@@ -80,6 +81,6 @@ export default function SignInScreen({ navigation }: StackScreenProps<any>) {
           </View>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

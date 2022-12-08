@@ -14,6 +14,7 @@ import EmojiSticker from "@components/Emoji/EmojiSticker";
 import { captureRef } from "react-native-view-shot";
 import { COLORS } from "@config/constant";
 import SearchHeader from "@components/header/SearchBar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const PlaceholderImage = require("@assets/splash.png");
 
@@ -74,18 +75,18 @@ export default function HomeScreen({}) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <SearchHeader />
 
       <View></View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS["dark-main"],
+    backgroundColor: COLORS["bg-main"],
     alignItems: "center",
   },
   imageContainer: {

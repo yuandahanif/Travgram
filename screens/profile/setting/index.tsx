@@ -11,6 +11,7 @@ import app from "@config/firebase";
 import { Pressable } from "react-native";
 import textStyle from "@styles/text.style";
 import { COLORS } from "@config/constant";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const auth = getAuth(app);
 
@@ -22,19 +23,19 @@ export default function SettingScreen({}) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Pressable onPress={logout}>
-        <Text style={textStyle.textWhite}>Logout</Text>
+        <Text style={textStyle.textMain}>Logout</Text>
       </Pressable>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS["dark-main"],
+    backgroundColor: COLORS["bg-main"],
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
 });
