@@ -123,7 +123,7 @@ export default function HomeScreen({}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#25292e",
+    backgroundColor: "#121212",
     alignItems: "center",
   },
   imageContainer: {

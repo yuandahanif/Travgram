@@ -1,42 +1,10 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
-import { StatusBar } from "expo-status-bar";
-
-import Ionicons from "@expo/vector-icons/Ionicons";
-
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import HomeScreen from "./screens/home";
-import ProfileScreen from "screens/profile";
-
-const Tab = createBottomTabNavigator();
+import { useAuthentication } from "@utils/useAuthentication";
+import AuthStack from "@navigation/authStack";
+import UserTab from "@navigation/userTab";
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      {/* <StatusBar style="auto" /> */}
+  const { user } = useAuthentication();
 
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-circle" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
+  return user ? <UserTab /> : <AuthStack />;
 }
