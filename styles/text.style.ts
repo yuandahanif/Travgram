@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const textStyle = StyleSheet.create({
   textMain: { color: COLORS["text-main"] },
+  textWhite: { color: COLORS["white"] },
   textBlue: { color: COLORS["blue-main"] },
 
   textTitle: {

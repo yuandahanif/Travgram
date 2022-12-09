@@ -1,113 +1,156 @@
-import { ImageSourcePropType, StyleSheet, View } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import { useState, useRef } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import * as MediaLibrary from "expo-media-library";
-
-import Button from "@components/Button/Button";
-import ImageViewer from "@components/Image/ImageViewer";
-import IconButton from "@components/Button/IconButton";
-import CircleButton from "@components/Button/CircleButton";
-import EmojiPicker from "@components/Emoji/EmojiPicker";
-import EmojiList from "@components/Emoji/EmojiList";
-import EmojiSticker from "@components/Emoji/EmojiSticker";
-import { captureRef } from "react-native-view-shot";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
 import { COLORS } from "@config/constant";
 import SearchHeader from "@components/header/SearchBar";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const PlaceholderImage = require("@assets/splash.png");
+import containerStyle from "@styles/container.style";
+import textStyle from "@styles/text.style";
+import { ScrollView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Modal } from "react-native";
+import { Pressable } from "react-native";
 
 export default function HomeScreen({}) {
-  const imageRef = useRef<View>(null);
-  const [status, requestPermission] = MediaLibrary.usePermissions();
-  const [selectedImage, setSelectedImage] = useState<null | string>(null);
-  const [showAppOptions, setShowAppOptions] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [pickedEmoji, setPickedEmoji] = useState<ImageSourcePropType | null>(
-    null
-  );
-
-  if (status === null) {
-    requestPermission();
-  }
-
-  const pickImageAsync = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
-      setShowAppOptions(true);
-    } else {
-      alert("You did not select any image.");
-    }
-  };
-
-  const onReset = () => {
-    setShowAppOptions(false);
-    setPickedEmoji(null);
-  };
-
-  const onAddSticker = () => {
-    setIsModalVisible(true);
-  };
-
-  const onModalClose = () => {
-    setIsModalVisible(false);
-  };
-  const onSaveImageAsync = async () => {
-    try {
-      const localUri = await captureRef(imageRef, {
-        height: 440,
-        quality: 1,
-      });
-
-      await MediaLibrary.saveToLibraryAsync(localUri);
-      if (localUri) {
-        alert("Saved!");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={containerStyle.default}>
       <SearchHeader />
 
-      <View></View>
+      <View style={styles.infoCard}>
+        <View>
+          <Text style={textStyle.textWhite}>Poinmu</Text>
+          <Text style={textStyle.textWhite}>1.234</Text>
+        </View>
+      </View>
+
+      <View
+        style={{
+          height: 150,
+        }}
+      >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {[1, 2, 3].map((i) => (
+            <View
+              key={i}
+              style={[
+                styles.infoCard,
+                {
+                  marginHorizontal: 10,
+                  marginVertical: 0,
+                  width: 360,
+                  height: 100,
+                },
+              ]}
+            >
+              <View>
+                <Text style={textStyle.textWhite}>Poinmu</Text>
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.textStyle}>Tutup</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      <TouchableOpacity
+        onPress={() => setModalVisible(true)}
+        style={styles.floatingBtn}
+      >
+        <Ionicons
+          name="calendar-outline"
+          size={30}
+          color={COLORS["blue-main"]}
+        />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS["bg-main"],
-    alignItems: "center",
-  },
-  imageContainer: {
-    flex: 1,
-    paddingTop: 58,
-  },
-  image: {
-    width: 320,
-    height: 440,
-    borderRadius: 18,
-  },
-  footerContainer: {
-    flex: 1 / 3,
-    alignItems: "center",
-  },
-  optionsContainer: {
-    position: "absolute",
-    bottom: 80,
-  },
-  optionsRow: {
-    alignItems: "center",
+  infoCard: {
+    width: "95%",
+    height: 120,
+    borderRadius: 10,
+    padding: 15,
+    margin: 20,
     flexDirection: "row",
+    backgroundColor: COLORS["blue-main"],
+  },
+
+  floatingBtn: {
+    borderWidth: 1,
+    borderColor: COLORS["blue-main"],
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+    width: 50,
+    position: "absolute",
+    bottom: 30,
+    left: 10,
+    backgroundColor: "#fff",
+    borderRadius: 100,
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 15,
+    width: "90%",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+
+  button: {
+    borderRadius: 10,
+    padding: 10,
+    paddingHorizontal: 20,
+    elevation: 2,
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });

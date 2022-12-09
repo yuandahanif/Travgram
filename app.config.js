@@ -9,9 +9,7 @@ export default {
     orientation: "portrait",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
-    eas: {
-      projectId: "6a9441f7-11de-48ae-8393-3a8a82d0cd7c",
-    },
+
     splash: {
       image: "./assets/splash.png",
       resizeMode: "contain",
@@ -25,6 +23,7 @@ export default {
       supportsTablet: true,
     },
     android: {
+      package: "nthe.travgram",
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#121212",
@@ -35,6 +34,9 @@ export default {
       favicon: "./assets/favicon.png",
     },
     extra: {
+      eas: {
+        projectId: "181d0be6-0aca-40b2-a8d8-6246b55e450d",
+      },
       firebaseApiKey: process.env.FIREBASE_API_KEY,
       firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
       firebaseProjectId: process.env.FIREBASE_PROJECT_ID,

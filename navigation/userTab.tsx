@@ -8,10 +8,13 @@ import HomeScreen from "@screens/home";
 import ProfileScreen from "@screens/profile";
 import SettingScreen from "@screens/profile/setting";
 import { COLORS } from "@config/constant";
+import ExploreScreen from "@screens/explore";
+import { createStackNavigator } from "@react-navigation/stack";
+import CameraScreen from "@screens/quest/camera";
+import QuestScreen from "@screens/quest";
 
 const Drawer = createDrawerNavigator();
-
-const ProfileNavigation = () => {
+const ProfileDrawer = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Profile"
@@ -23,8 +26,18 @@ const ProfileNavigation = () => {
   );
 };
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+const ExploreStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Explore" component={ExploreScreen} />
+      <Stack.Screen name="Quest" component={QuestScreen} />
+      <Stack.Screen name="Camera" component={CameraScreen} />
+    </Stack.Navigator>
+  );
+};
 
+const Tab = createBottomTabNavigator();
 export default function UserTab() {
   return (
     <NavigationContainer theme={DefaultTheme}>
@@ -40,9 +53,10 @@ export default function UserTab() {
           }}
         />
         <Tab.Screen
-          name="Jelajah"
-          component={ProfileScreen}
+          name="ExploreStack"
+          component={ExploreStack}
           options={{
+            tabBarLabel: "Jelajah",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="map-outline" color={color} size={size} />
             ),
@@ -58,8 +72,8 @@ export default function UserTab() {
           }}
         />
         <Tab.Screen
-          name="ProfileNav"
-          component={ProfileNavigation}
+          name="ProvileDrawer"
+          component={ProfileDrawer}
           options={{
             tabBarLabel: "Profile",
             tabBarIcon: ({ color, size }) => (

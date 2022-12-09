@@ -13,6 +13,7 @@ import EmojiList from "@components/Emoji/EmojiList";
 import EmojiSticker from "@components/Emoji/EmojiSticker";
 import { captureRef } from "react-native-view-shot";
 import { COLORS } from "@config/constant";
+import containerStyle from "@styles/container.style";
 
 const PlaceholderImage = require("@assets/splash.png");
 
@@ -73,7 +74,7 @@ export default function EmojiEditor({}) {
   };
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <GestureHandlerRootView style={containerStyle.default}>
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
         <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
       </EmojiPicker>

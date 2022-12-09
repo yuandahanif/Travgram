@@ -1,4 +1,5 @@
 import { COLORS } from "@config/constant";
+import containerStyle from "@styles/container.style";
 import textStyle from "@styles/text.style";
 import { useAuthentication } from "@utils/useAuthentication";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -10,7 +11,7 @@ export default function ProfileScreen({}) {
   const { user } = useAuthentication();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={containerStyle.default}>
       {user?.photoURL ? (
         <Image source={{ uri: user?.photoURL }} style={styles.image} />
       ) : (
@@ -23,11 +24,6 @@ export default function ProfileScreen({}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS["bg-main"],
-    alignItems: "center",
-  },
   image: {
     width: 320,
     height: 320,
