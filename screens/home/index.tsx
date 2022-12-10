@@ -9,6 +9,7 @@ import { ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Modal } from "react-native";
 import { Pressable } from "react-native";
+import { StyledPressable, StyledText, StyledView } from "@components/styled";
 
 const PointCard = () => {
   const styles = StyleSheet.create({
@@ -141,17 +142,50 @@ export default function HomeScreen({}) {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
+        <StyledView className="flex-1 justify-center items-center">
+          <StyledView className="bg-white items-center w-5/6 p-4 py-3 shadow rounded-lg border border-blue-main">
+            <StyledText className="text-lg text-center font-semibold mb-4">
+              Absen Harian
+            </StyledText>
+
+            <StyledView className="flex-row w-full gap-2 items-center justify-center mb-2">
+              {[1, 2, 3].map((v) => (
+                <StyledPressable
+                  key={v.toString()}
+                  className={`grow bg-blue-main  py-5 rounded-md flex items-center`}
+                >
+                  <StyledText className="text-white">Hari ke {v}</StyledText>
+                </StyledPressable>
+              ))}
+            </StyledView>
+
+            <StyledView className="flex-row w-full items-center justify-center gap-x-2 mb-2">
+              {[4, 5, 6].map((v) => (
+                <StyledPressable
+                  key={v.toString()}
+                  className={`grow bg-blue-main  py-5 rounded-md flex items-center`}
+                >
+                  <StyledText className="text-white">Hari ke {v}</StyledText>
+                </StyledPressable>
+              ))}
+            </StyledView>
+
+            <StyledView className="flex-row w-full items-center justify-center px-1">
+              <StyledPressable
+                className={`grow bg-blue-main w-full py-5 rounded-md flex items-center mb-8`}
+              >
+                <StyledText className="text-white">Hari ke 7</StyledText>
+              </StyledPressable>
+            </StyledView>
+
+            <StyledPressable
+              className="bg-lime-500 px-8 py-2 rounded-lg"
               onPress={() => setModalVisible(!modalVisible)}
             >
               <Text style={styles.textStyle}>Tutup</Text>
-            </Pressable>
-          </View>
-        </View>
+            </StyledPressable>
+          </StyledView>
+        </StyledView>
       </Modal>
 
       <TouchableOpacity
@@ -191,39 +225,6 @@ const styles = StyleSheet.create({
     left: 10,
     backgroundColor: "#fff",
     borderRadius: 100,
-  },
-
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 15,
-    width: "90%",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-
-  button: {
-    borderRadius: 10,
-    padding: 10,
-    paddingHorizontal: 20,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
   },
 
   textStyle: {

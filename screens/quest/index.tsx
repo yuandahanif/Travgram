@@ -6,7 +6,6 @@ import {
   View,
 } from "react-native";
 
-import app from "@config/firebase";
 import { Pressable } from "react-native";
 import textStyle from "@styles/text.style";
 import { COLORS } from "@config/constant";
