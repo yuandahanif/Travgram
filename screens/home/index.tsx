@@ -10,6 +10,93 @@ import { Ionicons } from "@expo/vector-icons";
 import { Modal } from "react-native";
 import { Pressable } from "react-native";
 
+const PointCard = () => {
+  const styles = StyleSheet.create({
+    card: {
+      width: "95%",
+      height: 120,
+      borderRadius: 10,
+      padding: 15,
+      margin: 20,
+      flexDirection: "row",
+      backgroundColor: COLORS["blue-main"],
+    },
+
+    left: {
+      // backgroundColor: "red",
+      flex: 1,
+    },
+
+    title: {
+      fontSize: 20,
+      fontWeight: "500",
+    },
+
+    point: {
+      fontSize: 30,
+      fontWeight: "600",
+    },
+
+    line: {
+      borderRadius: 2,
+      borderWidth: 2,
+      borderColor: "white",
+      // marginHorizontal: 25,
+      backgroundColor: "white",
+    },
+  });
+
+  return (
+    <View style={styles.card}>
+      <View style={styles.left}>
+        <Text style={[textStyle.textWhite, styles.title]}>Poinmu</Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={[textStyle.textWhite, styles.point]}>1.234</Text>
+
+          <View style={{ marginLeft: 5, position: "relative" }}>
+            <Ionicons
+              name="trending-up-outline"
+              color={COLORS["green-main"]}
+              size={20}
+            />
+            <Text style={[textStyle.textWhite, { fontSize: 10 }]}>1.23</Text>
+          </View>
+        </View>
+
+        <Text style={[textStyle.textWhite, { fontSize: 10 }]}>Cek Riwayat</Text>
+      </View>
+
+      <View style={styles.line} />
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          flex: 1.7,
+        }}
+      >
+        <Pressable style={{ justifyContent: "center", alignItems: "center" }}>
+          <Ionicons
+            name="trending-up-outline"
+            color={COLORS["green-main"]}
+            size={40}
+          />
+          <Text style={[textStyle.textWhite, { fontSize: 16 }]}>Kumpulkan</Text>
+        </Pressable>
+
+        <Pressable style={{ justifyContent: "center", alignItems: "center" }}>
+          <Ionicons
+            name="trending-up-outline"
+            color={COLORS["green-main"]}
+            size={40}
+          />
+          <Text style={[textStyle.textWhite, { fontSize: 16 }]}>Tukar</Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+};
+
 export default function HomeScreen({}) {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -17,12 +104,7 @@ export default function HomeScreen({}) {
     <SafeAreaView style={containerStyle.default}>
       <SearchHeader />
 
-      <View style={styles.infoCard}>
-        <View>
-          <Text style={textStyle.textWhite}>Poinmu</Text>
-          <Text style={textStyle.textWhite}>1.234</Text>
-        </View>
-      </View>
+      <PointCard />
 
       <View
         style={{
