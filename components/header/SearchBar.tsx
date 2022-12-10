@@ -19,7 +19,6 @@ export default function SearchHeader({}: Props) {
         style={styles.cameraButton}
         onPress={() => {
           // console.log(navigation.getParent("Explore"));
-
           // navigation.navigate("Camera");
         }}
       >

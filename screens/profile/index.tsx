@@ -1,33 +1,29 @@
-import { COLORS } from "@config/constant";
-import containerStyle from "@styles/container.style";
-import textStyle from "@styles/text.style";
+import {
+  StyledImage,
+  StyledSafeAreaView,
+  StyledText,
+} from "@components/styled";
 import { useAuthentication } from "@utils/useAuthentication";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-const PlaceholderImage = require("@assets/splash.png");
 
 export default function ProfileScreen({}) {
   const { user } = useAuthentication();
 
   return (
-    <SafeAreaView style={containerStyle.default}>
+    <StyledSafeAreaView className="flex-1 justify-center items-center">
       {user?.photoURL ? (
-        <Image source={{ uri: user?.photoURL }} style={styles.image} />
+        <StyledImage source={{ uri: user?.photoURL }} className="w-40 h-40" />
       ) : (
-        <Image source={PlaceholderImage} style={styles.image} />
+        <StyledImage
+          source={{
+            uri: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/350/exploding-head_1f92f.png",
+          }}
+          className="w-20 h-20"
+        />
       )}
 
-      <Text style={textStyle.textMain}>{user?.displayName || user?.email}</Text>
-    </SafeAreaView>
+      <StyledText className="mt-4 text-base">
+        {user?.displayName || user?.email}
+      </StyledText>
+    </StyledSafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  image: {
-    width: 320,
-    height: 320,
-    borderRadius: 320 / 2,
-    overflow: "hidden",
-  },
-});

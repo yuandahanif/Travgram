@@ -1,6 +1,10 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  NavigatorScreenParams,
+} from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
@@ -12,6 +16,7 @@ import ExploreScreen from "@screens/explore";
 import { createStackNavigator } from "@react-navigation/stack";
 import CameraScreen from "@screens/quest/camera";
 import QuestScreen from "@screens/quest";
+import GiftScreen from "@screens/gift";
 
 const Drawer = createDrawerNavigator();
 const ProfileDrawer = () => {
@@ -26,7 +31,13 @@ const ProfileDrawer = () => {
   );
 };
 
-const Stack = createStackNavigator();
+export type ExploreStackParamList = {
+  Explore: undefined;
+  Quest: undefined;
+  Camera: undefined;
+};
+
+const Stack = createStackNavigator<ExploreStackParamList>();
 const ExploreStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -37,7 +48,14 @@ const ExploreStack = () => {
   );
 };
 
-const Tab = createBottomTabNavigator();
+export type BottomTabParamList = {
+  Home: undefined;
+  ExploreStack: NavigatorScreenParams<ExploreStackParamList>;
+  Gift: undefined;
+  ProfileDrawer: undefined;
+};
+
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 export default function UserTab() {
   return (
     <NavigationContainer theme={DefaultTheme}>
@@ -63,8 +81,8 @@ export default function UserTab() {
           }}
         />
         <Tab.Screen
-          name="Hadiah"
-          component={ProfileScreen}
+          name="Gift"
+          component={GiftScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="gift-outline" color={color} size={size} />
@@ -72,7 +90,7 @@ export default function UserTab() {
           }}
         />
         <Tab.Screen
-          name="ProvileDrawer"
+          name="ProfileDrawer"
           component={ProfileDrawer}
           options={{
             tabBarLabel: "Profile",

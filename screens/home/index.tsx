@@ -10,8 +10,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { Modal } from "react-native";
 import { Pressable } from "react-native";
 import { StyledPressable, StyledText, StyledView } from "@components/styled";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { BottomTabParamList } from "@navigation/userTab";
 
-const PointCard = () => {
+const PointCard = ({ NavigatetoGift }: { NavigatetoGift: () => void }) => {
   const styles = StyleSheet.create({
     card: {
       width: "95%",
@@ -85,7 +87,10 @@ const PointCard = () => {
           <Text style={[textStyle.textWhite, { fontSize: 16 }]}>Kumpulkan</Text>
         </Pressable>
 
-        <Pressable style={{ justifyContent: "center", alignItems: "center" }}>
+        <Pressable
+          style={{ justifyContent: "center", alignItems: "center" }}
+          onPress={NavigatetoGift}
+        >
           <Ionicons
             name="trending-up-outline"
             color={COLORS["green-main"]}
@@ -98,14 +103,20 @@ const PointCard = () => {
   );
 };
 
-export default function HomeScreen({}) {
+export default function HomeScreen({
+  navigation,
+}: BottomTabScreenProps<BottomTabParamList>) {
   const [modalVisible, setModalVisible] = useState(false);
+
+  const toGiftScreen = () => {
+    navigation.navigate("Gift");
+  };
 
   return (
     <SafeAreaView style={containerStyle.default}>
       <SearchHeader />
 
-      <PointCard />
+      <PointCard NavigatetoGift={toGiftScreen} />
 
       <View
         style={{
