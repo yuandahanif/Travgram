@@ -17,6 +17,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CameraScreen from "@screens/quest/camera";
 import QuestScreen from "@screens/quest";
 import GiftScreen from "@screens/gift";
+import ExploreDetailScreen from "@screens/explore/detail";
 
 const Drawer = createDrawerNavigator();
 const ProfileDrawer = () => {
@@ -34,14 +35,19 @@ const ProfileDrawer = () => {
 export type ExploreStackParamList = {
   Explore: undefined;
   Quest: undefined;
+  Detail: undefined;
   Camera: undefined;
 };
 
 const Stack = createStackNavigator<ExploreStackParamList>();
 const ExploreStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName="Explore"
+    >
       <Stack.Screen name="Explore" component={ExploreScreen} />
+      <Stack.Screen name="Detail" component={ExploreDetailScreen} />
       <Stack.Screen name="Quest" component={QuestScreen} />
       <Stack.Screen name="Camera" component={CameraScreen} />
     </Stack.Navigator>
