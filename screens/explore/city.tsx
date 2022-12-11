@@ -1,7 +1,6 @@
 import { FlatList, ListRenderItem } from "react-native";
 
 import containerStyle from "@styles/container.style";
-import SearchHeader from "@components/header/SearchBar";
 import {
   StyledImageBackground,
   StyledPressable,
@@ -13,7 +12,6 @@ import {
 import { ExploreStackParamList } from "@navigation/userTab";
 import { StackScreenProps } from "@react-navigation/stack";
 import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
-import { QueryDocumentSnapshot } from "firebase/firestore";
 
 export default function CityScreen({
   navigation,
@@ -29,19 +27,19 @@ export default function CityScreen({
     id: param?.cityId,
   });
 
-  const ListRenderer: ListRenderItem<QueryDocumentSnapshot<f_kota>> = ({
-    item,
-  }) => {
-    console.log("file: city.tsx:37 ~ item", item);
-    const data = item?.data();
-
+  const ListRenderer: ListRenderItem<{
+    deskripsi: string;
+    gambar: string[];
+    nama: string;
+  }> = ({ item }) => {
+    // console.log("file: city.tsx:35 ~ item", item);
     return (
       <StyledPressable
         onPress={toQuestScreen}
         className="flex-1 h-56 w-full rounded-lg relative overflow-hidden"
       >
         <StyledImageBackground
-          source={{ uri: data.gambar }}
+          source={{ uri: item.gambar[0] }}
           resizeMode="cover"
           className="flex-1 bg-slate-200 mb-4"
         >
@@ -50,7 +48,7 @@ export default function CityScreen({
             style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
           >
             <StyledText className="text-right text-white">
-              {data.nama}
+              {item?.nama}
             </StyledText>
           </StyledView>
         </StyledImageBackground>
@@ -65,17 +63,25 @@ export default function CityScreen({
           Jelajahi Objek wisata
         </StyledText>
 
-        <StyledView className="pb-5">
-          {/* <FlatList
-            data={kota?.docs || []}
-            renderItem={ListRenderer}
-            extraData={toQuestScreen}
-            keyExtractor={(item) => {
-              const data = item?.data();
-              return `${data.nama}_${data.gambar}`;
-            }}
-          /> */}
-        </StyledView>
+        {kota.getDocument?.data() && (
+          <>
+            {console.log(kota.getDocument?.data()?.wisata)}
+            <StyledView>
+              <StyledText>{kota.getDocument?.data()?.nama}</StyledText>
+            </StyledView>
+
+            <StyledView className="pb-5">
+              <FlatList
+                data={kota.getDocument?.data()?.wisata}
+                renderItem={ListRenderer}
+                extraData={toQuestScreen}
+                keyExtractor={(item) => {
+                  return `${item.nama}`;
+                }}
+              />
+            </StyledView>
+          </>
+        )}
       </StyledView>
     </StyledSafeAreaView>
   );

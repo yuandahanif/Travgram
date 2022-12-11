@@ -7,6 +7,10 @@ import {
   where,
   CollectionReference,
   WhereFilterOp,
+  doc,
+  getDoc,
+  DocumentReference,
+  DocumentSnapshot,
 } from "firebase/firestore";
 import app from "@config/firebase";
 import { useEffect, useState } from "react";
@@ -23,28 +27,36 @@ export function useFirestore<T>(
     id?: string;
     queryEq?: { key: string; condition: WhereFilterOp; value: string };
   }
-): QuerySnapshot<T> | undefined {
-  const [data, setData] = useState<QuerySnapshot<T>>();
+): {
+  getQuery: QuerySnapshot<T> | undefined;
+  getDocument: DocumentSnapshot<T> | undefined;
+} {
+  const [queryRes, setQueryRes] = useState<QuerySnapshot<T> | undefined>(
+    undefined
+  );
+
+  const [documentRes, setDocumentRes] = useState<
+    DocumentSnapshot<T> | undefined
+  >(undefined);
+
   const _getter = async () => {
     try {
       const db = getFirestore(app);
       const cols = collection(db, entity) as CollectionReference<T>;
 
       if (options?.id) {
-        console.log(
-          "file: useFirestore.ts:34 ~ const_getter= ~ options?.id",
-          options?.id
-        );
-        const cols = collection(
-          db,
-          entity,
-          options.id
-        ) as CollectionReference<T>;
+        const docRef = doc(db, entity, options.id) as DocumentReference<T>;
 
-        // const snapshot = await getDocs(cols);
+        const one = await getDoc(docRef);
+        // if (one.exists()) {
+        //   console.log("Document data:", one.data());
+        // } else {
+        //   console.log("No such document!");
+        // }
+
         // snapshot.docs.map((doc) => console.log(doc.data()));
 
-        // setData(snapshot);
+        setDocumentRes(one);
       } else if (options?.queryEq) {
         const { queryEq } = options;
         const q = query(
@@ -53,12 +65,12 @@ export function useFirestore<T>(
         );
         const snapshot = await getDocs(q);
 
-        setData(snapshot);
+        setQueryRes(snapshot);
       } else {
         const snapshot = await getDocs(cols);
         // snapshot.docs.map((doc) => doc.data());
         //   return snapshot;
-        setData(snapshot);
+        setQueryRes(snapshot);
       }
     } catch (error) {
       console.error(error);
@@ -70,5 +82,5 @@ export function useFirestore<T>(
     _getter();
   }, []);
 
-  return data;
+  return { getQuery: queryRes, getDocument: documentRes };
 }
