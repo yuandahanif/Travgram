@@ -4,7 +4,7 @@ import { COLORS } from "@config/constant";
 import SearchHeader from "@components/header/SearchBar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import containerStyle from "@styles/container.style";
-import textStyle from "@styles/text.style";
+import textStyle, { textStyle1 } from "@styles/text.style";
 import { ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Modal } from "react-native";
@@ -12,6 +12,7 @@ import { Pressable } from "react-native";
 import { StyledPressable, StyledText, StyledView } from "@components/styled";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "@navigation/userTab";
+
 
 const PointCard = ({ NavigatetoGift }: { NavigatetoGift: () => void }) => {
   const styles = StyleSheet.create({
@@ -120,6 +121,67 @@ export default function HomeScreen({
 
       <View
         style={{
+          height: 170,
+        }}
+      >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {[1, 2, 3].map((i) => (
+            <View
+              key={i}
+              style={[
+                styles.infoCard,
+                {
+                  marginHorizontal: 10,
+                  marginVertical: 0,
+                  width: 360,
+                  height: 150,
+                },
+              ]}
+            >
+              
+              <View>
+                <Text style={textStyle.textWhite}>Poinmu</Text>
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+       
+      </View>
+
+      <StyledText className="text-left mr-auto ml-4 mb-2">Populer Minggu ini</StyledText>
+
+      <View
+        style={{
+          height: 130,
+        }}
+      >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {[1, 2, 3].map((i) => (
+            <View
+              key={i}
+              style={[
+                styles.infoCard,
+                {
+                  marginHorizontal: 10,
+                  marginVertical: 0,
+                  width: 360,
+                  height: 110,
+                },
+              ]}
+            >
+              <View>
+                <Text style={textStyle.textWhite}>Gambar Kota</Text>
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+       
+      </View>
+
+      <StyledText className="text-left mr-auto ml-4 mb-2">Lokasi wisata terdekat</StyledText>
+
+      <View
+        style={{
           height: 150,
         }}
       >
@@ -133,16 +195,17 @@ export default function HomeScreen({
                   marginHorizontal: 10,
                   marginVertical: 0,
                   width: 360,
-                  height: 100,
+                  height: 150,
                 },
               ]}
             >
               <View>
-                <Text style={textStyle.textWhite}>Poinmu</Text>
+                <Text style={textStyle.textWhite}>Gambar Disekitarmu</Text>
               </View>
             </View>
           ))}
         </ScrollView>
+       
       </View>
 
       <Modal

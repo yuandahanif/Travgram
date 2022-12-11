@@ -63,7 +63,7 @@ export default function ExploreScreen({
 
         <StyledView className="pb-5">
           <FlatList
-            data={kota?.getQuery?.docs || []}
+            data={kota?.docs || []}
             renderItem={ListRenderer}
             extraData={toQuestScreen}
             keyExtractor={(item) => {

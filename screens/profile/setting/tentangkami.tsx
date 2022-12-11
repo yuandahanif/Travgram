@@ -54,7 +54,7 @@ import {
 
         </StyledText>
 
-        <StyledPressable className="bg-lime-500 px-8 py-2 rounded-lg mt-9 ml-auto mr-6" onPress={toAboutScreen}>
+        <StyledPressable className="bg-lime-500 px-8 py-2 rounded-rg mt-9 mx-auto mr-6" onPress={toAboutScreen}>
         <StyledText>Kembali</StyledText>
       </StyledPressable>
   
