@@ -58,12 +58,12 @@ export default function ExploreScreen({
 
       <StyledView className="flex-1 w-full p-2">
         <StyledText className="text-lg font-semibold mb-2">
-          Jelajahi Objek wisata
+          Pilih kota wisata tujuanmu
         </StyledText>
 
         <StyledView className="pb-5">
           <FlatList
-            data={kota?.docs || []}
+            data={kota?.getQuery?.docs || []}
             renderItem={ListRenderer}
             extraData={toQuestScreen}
             keyExtractor={(item) => {
