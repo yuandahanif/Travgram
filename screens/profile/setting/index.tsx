@@ -12,6 +12,7 @@ import { Pressable } from "react-native";
 import textStyle from "@styles/text.style";
 import { COLORS } from "@config/constant";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { StyledPressable } from "@components/styled";
 
 const auth = getAuth(app);
 
@@ -23,12 +24,15 @@ export default function SettingScreen({}) {
   };
 
   return (
+    
     <SafeAreaView style={styles.container}>
-      <Pressable onPress={logout}>
-        <Text style={textStyle.textMain}>Logout</Text>
-      </Pressable>
+      <StyledPressable className="bg-lime-500 px-12 py-2 rounded-lg mt-5" onPress={logout}>
+        <Text>Logout</Text>
+      </StyledPressable>
+
+
     </SafeAreaView>
-  );
+  );  
 }
 
 const styles = StyleSheet.create({

@@ -18,9 +18,15 @@ import CameraScreen from "@screens/explore/quest/camera";
 import QuestScreen from "@screens/explore/quest";
 import GiftScreen from "@screens/gift";
 import ExploreDetailScreen from "@screens/explore/detail";
-import CityScreen from "@screens/explore/city";
+import AboutUsScreen from "@screens/profile/setting/tentangkami";
 
-const Drawer = createDrawerNavigator();
+export type ProfileDrawerList = {
+  Profile: undefined;
+  Setting: undefined;
+  AboutUs: undefined
+};
+const Drawer = createDrawerNavigator<ProfileDrawerList>();
+
 const ProfileDrawer = () => {
   return (
     <Drawer.Navigator
@@ -29,6 +35,7 @@ const ProfileDrawer = () => {
     >
       <Drawer.Screen name="Profile" component={ProfileScreen} />
       <Drawer.Screen name="Setting" component={SettingScreen} />
+      <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
     </Drawer.Navigator>
   );
 };
