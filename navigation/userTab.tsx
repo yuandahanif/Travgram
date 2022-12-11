@@ -19,6 +19,7 @@ import QuestScreen from "@screens/explore/quest";
 import GiftScreen from "@screens/gift";
 import ExploreDetailScreen from "@screens/explore/detail";
 import AboutUsScreen from "@screens/profile/setting/tentangkami";
+import CityScreen from "@screens/explore/city";
 
 export type ProfileDrawerList = {
   Profile: undefined;
