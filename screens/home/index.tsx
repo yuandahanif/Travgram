@@ -9,10 +9,14 @@ import { ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Modal } from "react-native";
 import { Pressable } from "react-native";
-import { StyledPressable, StyledText, StyledView } from "@components/styled";
+import {
+  StyledImageBackground,
+  StyledPressable,
+  StyledText,
+  StyledView,
+} from "@components/styled";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "@navigation/userTab";
-
 
 const PointCard = ({ NavigatetoGift }: { NavigatetoGift: () => void }) => {
   const styles = StyleSheet.create({
@@ -138,17 +142,17 @@ export default function HomeScreen({
                 },
               ]}
             >
-              
               <View>
                 <Text style={textStyle.textWhite}>Poinmu</Text>
               </View>
             </View>
           ))}
         </ScrollView>
-       
       </View>
 
-      <StyledText className="text-left mr-auto ml-4 mb-2">Populer Minggu ini</StyledText>
+      <StyledText className="text-left mr-auto ml-4 mb-2">
+        Populer Minggu ini
+      </StyledText>
 
       <View
         style={{
@@ -156,9 +160,15 @@ export default function HomeScreen({
         }}
       >
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {[1, 2, 3].map((i) => (
-            <View
-              key={i}
+          {[
+            "https://safebooru.org//samples/4049/sample_7b24d7138adce8d2183e13bd38ad3c4db2e5d0fe.jpg",
+            "https://safebooru.org//samples/4049/sample_2a1e6a30a8cb86a3d54c28282edd5bb18fc40840.jpg",
+          ].map((link) => (
+            <StyledImageBackground
+              source={{
+                uri: link,
+              }}
+              key={link}
               style={[
                 styles.infoCard,
                 {
@@ -172,40 +182,38 @@ export default function HomeScreen({
               <View>
                 <Text style={textStyle.textWhite}>Gambar Kota</Text>
               </View>
-            </View>
+            </StyledImageBackground>
           ))}
         </ScrollView>
-       
       </View>
 
-      <StyledText className="text-left mr-auto ml-4 mb-2">Lokasi wisata terdekat</StyledText>
+      <StyledText className="text-left mr-auto ml-4 mb-2">
+        Lokasi wisata terdekat
+      </StyledText>
 
       <View
         style={{
           height: 150,
         }}
       >
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {[1, 2, 3].map((i) => (
-            <View
-              key={i}
-              style={[
-                styles.infoCard,
-                {
-                  marginHorizontal: 10,
-                  marginVertical: 0,
-                  width: 360,
-                  height: 150,
-                },
-              ]}
-            >
-              <View>
-                <Text style={textStyle.textWhite}>Gambar Disekitarmu</Text>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
-       
+        <StyledImageBackground
+          source={{
+            uri: "https://safebooru.org//samples/4049/sample_7b24d7138adce8d2183e13bd38ad3c4db2e5d0fe.jpg",
+          }}
+          style={[
+            styles.infoCard,
+            {
+              marginHorizontal: 10,
+              marginVertical: 0,
+              width: 360,
+              height: 150,
+            },
+          ]}
+        >
+          <View>
+            <Text style={textStyle.textWhite}>Gambar Disekitarmu</Text>
+          </View>
+        </StyledImageBackground>
       </View>
 
       <Modal
