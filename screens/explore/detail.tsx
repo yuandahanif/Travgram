@@ -6,37 +6,35 @@ import {
   StyledText,
   StyledView,
 } from "@components/styled";
-import { FlatList, ListRenderItem } from "react-native";
+import { FlatList, ListRenderItem, ScrollView } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
-import {
-  Gesture,
-  GestureDetector,
-  GestureHandlerRootView,
-} from "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useMemo } from "react";
+import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
 
 export default function ExploreDetailScreen({
   navigation,
-}: StackScreenProps<ExploreStackParamList>) {
-  const onDrag = useMemo(
-    () =>
-      Gesture.Pan().onUpdate((e) => {
-        console.log(e.translationY);
+  route,
+}: StackScreenProps<ExploreStackParamList, "Detail">) {
+  const param = route.params;
 
-        // translateX.value = e.translationX;
-        // translateY.value = e.translationY;
-      }),
-    // .onStart((e) => {
-    //   e.translationX += translateX.value;
-    //   e.translationY += translateY.value;
-    // }),
-    // .onStart((event) => {
-    //   event.translationX = translateX.value;
-    //   event.translationY = translateY.value;
-    // })
-    []
-  );
+  const kota = useFirestore<f_kota>(FIRESTORE_ENTITY.kota.key, {
+    id: param?.cityId,
+  });
+
+  const wisataMemo = useMemo<f_kota__wisata>(() => {
+    if (!kota.getDocument?.data()?.wisata) {
+      return { deskripsi: "", gambar: [""], nama: "" };
+    }
+
+    const data = kota.getDocument?.data()?.wisata[param?.wisataId];
+    if (data) {
+      return data;
+    }
+
+    return { deskripsi: "", gambar: [""], nama: "" };
+  }, [kota]);
 
   const ListRenderer: ListRenderItem<string> = ({ item }) => (
     <StyledView className={`rounded-md overflow-hidden mr-2`}>
@@ -50,26 +48,22 @@ export default function ExploreDetailScreen({
         <StyledImageBackground
           className="flex-1 w-full bg-cyan-300"
           source={{
-            uri: "https://safebooru.org//samples/4049/sample_7d44efd81e53b7f037e402975aa3cc22e0d02e85.jpg",
+            uri: wisataMemo.gambar[0],
           }}
         >
           {/* <GestureDetector gesture={onDrag}> */}
-            <StyledView className="flex-1 pt-52 items-center">
-              <StyledView
-                className="flex-1 p-10 py-5 rounded-t-lg w-11/12"
-                style={{ backgroundColor: "rgba(255,255,255,1)" }}
-              >
+          <StyledView className="flex-1 pt-20 items-center">
+            <StyledView
+              className="flex-1 p-10 py-5 rounded-t-lg w-11/12"
+              style={{ backgroundColor: "rgba(255,255,255,1)" }}
+            >
+              <ScrollView>
                 <StyledText className="text-black text-2xl font-semibold">
-                  Embung UII
+                  {wisataMemo.nama}
                 </StyledText>
 
                 <StyledView className="my-2">
-                  <StyledText>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Ipsam, magni ipsum! Velit ut pariatur reprehenderit
-                    quibusdam accusantium a explicabo autem dicta libero totam,
-                    earum, fuga impedit esse, veniam eligendi perferendis.
-                  </StyledText>
+                  <StyledText>{wisataMemo.deskripsi}</StyledText>
                 </StyledView>
 
                 <StyledView>
@@ -86,7 +80,7 @@ export default function ExploreDetailScreen({
                   />
                 </StyledView>
 
-                <StyledView className="my-2">
+                {/* <StyledView className="my-2">
                   <StyledText className="text-black text-xl font-semibold">
                     Komentar
                   </StyledText>
@@ -97,9 +91,10 @@ export default function ExploreDetailScreen({
                     quibusdam accusantium a explicabo autem dicta libero totam,
                     earum, fuga impedit esse, veniam eligendi perferendis.
                   </StyledText>
-                </StyledView>
-              </StyledView>
+                </StyledView> */}
+              </ScrollView>
             </StyledView>
+          </StyledView>
           {/* </GestureDetector> */}
         </StyledImageBackground>
       </GestureHandlerRootView>

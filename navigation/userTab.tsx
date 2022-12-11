@@ -24,7 +24,7 @@ import CityScreen from "@screens/explore/city";
 export type ProfileDrawerList = {
   Profile: undefined;
   Setting: undefined;
-  AboutUs: undefined
+  AboutUs: undefined;
 };
 const Drawer = createDrawerNavigator<ProfileDrawerList>();
 
@@ -44,7 +44,7 @@ const ProfileDrawer = () => {
 export type ExploreStackParamList = {
   Explore: undefined;
   Quest: undefined;
-  Detail: undefined;
+  Detail: { cityId: string; wisataId: string };
   Camera: undefined;
   City: { cityId: string };
 };

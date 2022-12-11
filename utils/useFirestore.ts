@@ -22,9 +22,7 @@ export const FIRESTORE_ENTITY = {
   },
 };
 
-const getQueryes = () => {
-
-}
+const getQueries = () => {};
 
 export function useFirestore<T>(
   entity: string,
@@ -53,13 +51,6 @@ export function useFirestore<T>(
         const docRef = doc(db, entity, options.id) as DocumentReference<T>;
 
         const one = await getDoc(docRef);
-        // if (one.exists()) {
-        //   console.log("Document data:", one.data());
-        // } else {
-        //   console.log("No such document!");
-        // }
-
-        // snapshot.docs.map((doc) => console.log(doc.data()));
 
         setDocumentRes(one);
       } else if (options?.queryEq) {
@@ -68,12 +59,15 @@ export function useFirestore<T>(
           cols,
           where(queryEq.key, queryEq.condition, queryEq.value)
         );
-        const snapshot = await getDocs(q);
-
-        setQueryRes(snapshot);
+        // const snapshot = await getDocs(q);
+        // FIXME: unsubscribe from realtime
+        const subscribe = onSnapshot(q, (data) => {
+          setQueryRes(data);
+        });
       } else {
+        // FIXME: unsubscribe from realtime
         // const snapshot = await getDocs(cols);
-        const snapshot = onSnapshot(cols, (data) => {
+        const subscribe = onSnapshot(cols, (data) => {
           setQueryRes(data);
         });
       }

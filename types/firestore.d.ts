@@ -5,3 +5,10 @@ type f_kota = {
     [key: string]: { deskripsi: string; gambar: string[]; nama: string };
   };
 };
+
+type f_kota__wisata = {
+  id?: string;
+  deskripsi: string;
+  gambar: string[];
+  nama: string;
+};

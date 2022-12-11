@@ -14,21 +14,17 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
 import { useMemo } from "react";
 
-type wisata = {
-  id: string;
-  deskripsi: string;
-  gambar: string[];
-  nama: string;
-};
-
 export default function CityScreen({
   navigation,
   route,
-}: StackScreenProps<ExploreStackParamList>) {
+}: StackScreenProps<ExploreStackParamList, "City">) {
   const param = route.params;
 
-  const toQuestScreen = () => {
-    navigation.navigate("Detail");
+  const toQuestScreen = (id: string) => {
+    navigation.navigate("Detail", {
+      cityId: param?.cityId || "",
+      wisataId: id,
+    });
   };
 
   const kota = useFirestore<f_kota>(FIRESTORE_ENTITY.kota.key, {
@@ -41,21 +37,20 @@ export default function CityScreen({
     }
 
     const data = kota.getDocument?.data()?.wisata;
-    const res: wisata[] = [];
+    const res: f_kota__wisata[] = [];
 
     for (const key in data) {
-      // console.log(`${key}: ${data[key]}`);
       res.push({ ...data[key], id: key });
     }
 
     return res;
   }, [kota]);
 
-  const ListRenderer: ListRenderItem<wisata> = ({ item }) => {
+  const ListRenderer: ListRenderItem<f_kota__wisata> = ({ item }) => {
     // console.log("file: city.tsx:35 ~ item", item);
     return (
       <StyledPressable
-        onPress={toQuestScreen}
+        onPress={() => toQuestScreen(item?.id || "")}
         className="flex-1 h-56 w-full rounded-lg relative overflow-hidden"
       >
         <StyledImageBackground
