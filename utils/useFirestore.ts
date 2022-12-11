@@ -3,11 +3,8 @@ import {
   collection,
   getDocs,
   QuerySnapshot,
-  DocumentData,
-  doc,
   CollectionReference,
 } from "firebase/firestore";
-import * as admin from "firebase-admin";
 import app from "@config/firebase";
 import { useEffect, useState } from "react";
 
@@ -22,29 +19,17 @@ export const FIRESTORE_ENTITY = {
   },
 };
 
-// const converter = <T>() => ({
-//   toFirestore: (data: T) => data,
-//   fromFirestore: (snap: FirebaseFirestore.QueryDocumentSnapshot) =>
-//     snap.data() as T,
-// });
-
-// const dataPoint = <T>(collectionPath: string) =>
-//   collection(app, collectionPath).withConverter
-
-export function useFirestore<T>(
-  entity: string
-): CollectionReference<T> | undefined {
-  const [data, setData] = useState<CollectionReference<T>>();
+export function useFirestore<T>(entity: string): QuerySnapshot<T> | undefined {
+  const [data, setData] = useState<QuerySnapshot<T>>();
   const _getter = async () => {
     try {
       const db = getFirestore(app);
       const cols = collection(db, entity) as CollectionReference<T>;
-      console.log("file: useFirestore.ts:42 ~ const_getter= ~ cols", cols);
 
-      //   const snapshot = await getDocs(cols);
-      // snapshot.docs.map((doc) => doc.data());
+      const snapshot = await getDocs(cols);
+      snapshot.docs.map((doc) => doc.data());
       //   return snapshot;
-      setData(cols);
+      setData(snapshot);
     } catch (error) {
       console.error(error);
       throw new Error("Firestore error");
