@@ -12,6 +12,14 @@ import {
 import { ExploreStackParamList } from "@navigation/userTab";
 import { StackScreenProps } from "@react-navigation/stack";
 import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
+import { useMemo } from "react";
+
+type wisata = {
+  id: string;
+  deskripsi: string;
+  gambar: string[];
+  nama: string;
+};
 
 export default function CityScreen({
   navigation,
@@ -27,11 +35,23 @@ export default function CityScreen({
     id: param?.cityId,
   });
 
-  const ListRenderer: ListRenderItem<{
-    deskripsi: string;
-    gambar: string[];
-    nama: string;
-  }> = ({ item }) => {
+  const wisataMemo = useMemo(() => {
+    if (!kota.getDocument?.data()?.wisata) {
+      return [];
+    }
+
+    const data = kota.getDocument?.data()?.wisata;
+    const res: wisata[] = [];
+
+    for (const key in data) {
+      // console.log(`${key}: ${data[key]}`);
+      res.push({ ...data[key], id: key });
+    }
+
+    return res;
+  }, [kota]);
+
+  const ListRenderer: ListRenderItem<wisata> = ({ item }) => {
     // console.log("file: city.tsx:35 ~ item", item);
     return (
       <StyledPressable
@@ -65,18 +85,17 @@ export default function CityScreen({
 
         {kota.getDocument?.data() && (
           <>
-            {console.log(kota.getDocument?.data()?.wisata)}
             <StyledView>
               <StyledText>{kota.getDocument?.data()?.nama}</StyledText>
             </StyledView>
 
             <StyledView className="pb-5">
               <FlatList
-                data={kota.getDocument?.data()?.wisata}
+                data={wisataMemo}
                 renderItem={ListRenderer}
                 extraData={toQuestScreen}
                 keyExtractor={(item) => {
-                  return `${item.nama}`;
+                  return `${item.id}`;
                 }}
               />
             </StyledView>
