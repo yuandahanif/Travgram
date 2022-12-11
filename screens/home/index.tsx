@@ -167,12 +167,16 @@ export default function HomeScreen({
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {[
             {
-              nama: "raja ampat",
-              link: "https://safebooru.org//samples/4049/sample_7b24d7138adce8d2183e13bd38ad3c4db2e5d0fe.jpg",
+              nama: "Masjid Ulil Albab UII",
+              link: "https://www.uii.ac.id/wp-content/uploads/2017/07/Ulil-Albab-UII.jpg",
             },
             {
-              nama: "raja",
-              link: "https://safebooru.org//samples/4049/sample_2a1e6a30a8cb86a3d54c28282edd5bb18fc40840.jpg",
+              nama: "Tugu Jogja",
+              link: "https://assets-a1.kompasiana.com/items/album/2015/07/06/tugu-yogyakarta-559a07dc0523bdd804a3117b.jpg",
+            },
+            {
+              nama: "Monas",
+              link: "https://jakarta-tourism.sgp1.cdn.digitaloceanspaces.com/images/article/8437415341664213099.jpg",
             },
           ].map((data) => (
             <StyledImageBackground
@@ -190,9 +194,9 @@ export default function HomeScreen({
                 },
               ]}
             >
-              <View>
-                <StyledText className="text-red-700">{data.nama}</StyledText>
-              </View>
+              <StyledView className="flex-1 mt-auto">
+                <StyledText className="text-slate-800 ml-auto bg-white p-2 font-semibold">{data.nama}</StyledText>
+              </StyledView>
             </StyledImageBackground>
           ))}
         </ScrollView>
@@ -209,7 +213,7 @@ export default function HomeScreen({
       >
         <StyledImageBackground
           source={{
-            uri: "https://safebooru.org//samples/4049/sample_7b24d7138adce8d2183e13bd38ad3c4db2e5d0fe.jpg",
+            uri: "https://www.gudeg.net/cni-content/uploads/modules/gallery/20190412110229.jpg",
           }}
           style={[
             styles.infoCard,
@@ -221,9 +225,9 @@ export default function HomeScreen({
             },
           ]}
         >
-          <View>
-            <Text style={textStyle.textWhite}>Gambar Disekitarmu</Text>
-          </View>
+          <StyledView className="flex-1 mt-auto">
+                <StyledText className="text-slate-800 ml-auto bg-white p-2 font-semibold">Merapi</StyledText>
+              </StyledView>
         </StyledImageBackground>
       </View>
 
