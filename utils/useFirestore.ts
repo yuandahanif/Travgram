@@ -11,6 +11,7 @@ import {
   getDoc,
   DocumentReference,
   DocumentSnapshot,
+  onSnapshot,
 } from "firebase/firestore";
 import app from "@config/firebase";
 import { useEffect, useState } from "react";
@@ -20,6 +21,10 @@ export const FIRESTORE_ENTITY = {
     key: "kota",
   },
 };
+
+const getQueryes = () => {
+
+}
 
 export function useFirestore<T>(
   entity: string,
@@ -67,10 +72,10 @@ export function useFirestore<T>(
 
         setQueryRes(snapshot);
       } else {
-        const snapshot = await getDocs(cols);
-        // snapshot.docs.map((doc) => doc.data());
-        //   return snapshot;
-        setQueryRes(snapshot);
+        // const snapshot = await getDocs(cols);
+        const snapshot = onSnapshot(cols, (data) => {
+          setQueryRes(data);
+        });
       }
     } catch (error) {
       console.error(error);
