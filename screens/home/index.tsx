@@ -25,7 +25,7 @@ const PointCard = ({ NavigatetoGift }: { NavigatetoGift: () => void }) => {
       height: 120,
       borderRadius: 10,
       padding: 15,
-      margin: 20,
+      margin: 10,
       flexDirection: "row",
       backgroundColor: COLORS["blue-main"],
     },
@@ -121,6 +121,10 @@ export default function HomeScreen({
     <SafeAreaView style={containerStyle.default}>
       <SearchHeader />
 
+<ScrollView>
+
+
+
       <PointCard NavigatetoGift={toGiftScreen} />
 
       <View
@@ -128,29 +132,30 @@ export default function HomeScreen({
           height: 170,
         }}
       >
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {[1, 2, 3].map((i) => (
-            <View
-              key={i}
+
+        <StyledImageBackground
+              source={{
+                uri: "https://img.okezone.com/content/2021/02/11/406/2360355/wow-wisata-dalam-negeri-diskon-hingga-95-bulan-ini-cek-link-promo-mister-aladin-di-sini-ZXw5NMluks.JPG",
+              }}
+              resizeMode="cover"
+            
               style={[
                 styles.infoCard,
                 {
                   marginHorizontal: 10,
                   marginVertical: 0,
-                  width: 360,
-                  height: 150,
+                  width: 370,
+                  height: 170,
                 },
               ]}
             >
-              <View>
-                <Text style={textStyle.textWhite}>Poinmu</Text>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
+              {/* <View>
+                <StyledText className="text-red-700">{"Diskon diluar nalar coy"}</StyledText>
+              </View> */}
+            </StyledImageBackground>
       </View>
 
-      <StyledText className="text-left mr-auto ml-4 mb-2">
+      <StyledText className="text-left mr-auto ml-4 mb-2 mt-4 font-semibold text-lg">
         Populer Minggu ini
       </StyledText>
 
@@ -193,7 +198,7 @@ export default function HomeScreen({
         </ScrollView>
       </View>
 
-      <StyledText className="text-left mr-auto ml-4 mb-2">
+      <StyledText className="text-left mr-auto ml-4 mb-2 mt-4 font-semibold text-lg">
         Lokasi wisata terdekat
       </StyledText>
 
@@ -286,6 +291,7 @@ export default function HomeScreen({
           color={COLORS["blue-main"]}
         />
       </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 }
