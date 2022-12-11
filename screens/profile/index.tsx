@@ -1,17 +1,26 @@
 import {
   StyledImage,
+  StyledPressable,
   StyledSafeAreaView,
   StyledText,
 } from "@components/styled";
+import { ProfileDrawerList } from "@navigation/userTab";
+import { DrawerScreenProps } from "@react-navigation/drawer";
 import { useAuthentication } from "@utils/useAuthentication";
 import { Pressable } from "react-native";
 
-export default function ProfileScreen({}) {
+export default function ProfileScreen({
+  navigation,
+}: DrawerScreenProps<ProfileDrawerList>) {
   const { user } = useAuthentication();
 
   const openDrawer = () => {
+    navigation.openDrawer()
+  }
 
 
+  const toAboutScreen = () => {
+    navigation.navigate('AboutUs')
   }
 
   return (
@@ -31,18 +40,20 @@ export default function ProfileScreen({}) {
         {user?.displayName || user?.email}
       </StyledText>
 
-      <StyledText className="mt-4 text-base">
-        ikan        
+      {/* <StyledText className="mt-4 text-base">
+        ikan
       </StyledText>
 
       <StyledText className="mt-4 text-base">
-        Pengaturan   
-      </StyledText>
+        Pengaturan
+      </StyledText> */}
 
-      <Pressable onPress={openDrawer}>
+      <StyledPressable className="bg-lime-500 px-8 py-2 rounded-lg mt-5" onPress={openDrawer}>
         <StyledText>Setting</StyledText>
-      </Pressable>
-      
+      </StyledPressable>
+
+
+
     </StyledSafeAreaView>
 
 
