@@ -161,14 +161,20 @@ export default function HomeScreen({
       >
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {[
-            "https://safebooru.org//samples/4049/sample_7b24d7138adce8d2183e13bd38ad3c4db2e5d0fe.jpg",
-            "https://safebooru.org//samples/4049/sample_2a1e6a30a8cb86a3d54c28282edd5bb18fc40840.jpg",
-          ].map((link) => (
+            {
+              nama: "raja ampat",
+              link: "https://safebooru.org//samples/4049/sample_7b24d7138adce8d2183e13bd38ad3c4db2e5d0fe.jpg",
+            },
+            {
+              nama: "raja",
+              link: "https://safebooru.org//samples/4049/sample_2a1e6a30a8cb86a3d54c28282edd5bb18fc40840.jpg",
+            },
+          ].map((data) => (
             <StyledImageBackground
               source={{
-                uri: link,
+                uri: data.link,
               }}
-              key={link}
+              key={data.link}
               style={[
                 styles.infoCard,
                 {
@@ -180,7 +186,7 @@ export default function HomeScreen({
               ]}
             >
               <View>
-                <Text style={textStyle.textWhite}>Gambar Kota</Text>
+                <StyledText className="text-red-700">{data.nama}</StyledText>
               </View>
             </StyledImageBackground>
           ))}
