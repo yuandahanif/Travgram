@@ -15,23 +15,29 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
 import { QueryDocumentSnapshot } from "firebase/firestore";
 
-export default function ExploreScreen({
+export default function CityScreen({
   navigation,
+  route,
 }: StackScreenProps<ExploreStackParamList>) {
-  const toQuestScreen = (id: string) => {
-    navigation.navigate("City", { cityId: id });
+  const param = route.params;
+
+  const toQuestScreen = () => {
+    navigation.navigate("Detail");
   };
 
-  const kota = useFirestore<f_kota>(FIRESTORE_ENTITY.kota.key);
+  const kota = useFirestore<f_kota>(FIRESTORE_ENTITY.kota.key, {
+    id: param?.cityId,
+  });
 
   const ListRenderer: ListRenderItem<QueryDocumentSnapshot<f_kota>> = ({
     item,
   }) => {
+    console.log("file: city.tsx:37 ~ item", item);
     const data = item?.data();
 
     return (
       <StyledPressable
-        onPress={() => toQuestScreen(item?.id)}
+        onPress={toQuestScreen}
         className="flex-1 h-56 w-full rounded-lg relative overflow-hidden"
       >
         <StyledImageBackground
@@ -54,15 +60,13 @@ export default function ExploreScreen({
 
   return (
     <StyledSafeAreaView style={containerStyle.default}>
-      <SearchHeader />
-
       <StyledView className="flex-1 w-full p-2">
         <StyledText className="text-lg font-semibold mb-2">
           Jelajahi Objek wisata
         </StyledText>
 
         <StyledView className="pb-5">
-          <FlatList
+          {/* <FlatList
             data={kota?.docs || []}
             renderItem={ListRenderer}
             extraData={toQuestScreen}
@@ -70,7 +74,7 @@ export default function ExploreScreen({
               const data = item?.data();
               return `${data.nama}_${data.gambar}`;
             }}
-          />
+          /> */}
         </StyledView>
       </StyledView>
     </StyledSafeAreaView>

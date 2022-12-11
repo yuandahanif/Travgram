@@ -14,10 +14,11 @@ import SettingScreen from "@screens/profile/setting";
 import { COLORS } from "@config/constant";
 import ExploreScreen from "@screens/explore";
 import { createStackNavigator } from "@react-navigation/stack";
-import CameraScreen from "@screens/quest/camera";
-import QuestScreen from "@screens/quest";
+import CameraScreen from "@screens/explore/quest/camera";
+import QuestScreen from "@screens/explore/quest";
 import GiftScreen from "@screens/gift";
 import ExploreDetailScreen from "@screens/explore/detail";
+import CityScreen from "@screens/explore/city";
 
 const Drawer = createDrawerNavigator();
 const ProfileDrawer = () => {
@@ -37,6 +38,7 @@ export type ExploreStackParamList = {
   Quest: undefined;
   Detail: undefined;
   Camera: undefined;
+  City: { cityId: string };
 };
 
 const Stack = createStackNavigator<ExploreStackParamList>();
@@ -48,6 +50,7 @@ const ExploreStack = () => {
     >
       <Stack.Screen name="Explore" component={ExploreScreen} />
       <Stack.Screen name="Detail" component={ExploreDetailScreen} />
+      <Stack.Screen name="City" component={CityScreen} />
       <Stack.Screen name="Quest" component={QuestScreen} />
       <Stack.Screen name="Camera" component={CameraScreen} />
     </Stack.Navigator>
