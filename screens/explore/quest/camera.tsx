@@ -17,7 +17,9 @@ import {
   StyledTouchableOpacity,
   StyledView,
 } from "@components/styled";
-import { Ionicons } from "@expo/vector-icons";
+import { useStorage } from "@utils/useStorage";
+
+const { uploadByte } = useStorage()
 
 const CameraPreview = ({
   photo,
@@ -45,7 +47,7 @@ const CameraPreview = ({
   );
 };
 
-export default function CameraScreen({}) {
+export default function CameraScreen({ }) {
   let camera: Camera;
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
@@ -60,6 +62,12 @@ export default function CameraScreen({}) {
 
   const __retakePicture = () => {
     setCapturedImage(null);
+  };
+
+  const __uploadPicture = () => {
+    if (capturedImage) {
+      uploadByte({ child: 'userUpload', file: capturedImage.uri })
+    }
   };
 
   if (!permission) {
@@ -91,6 +99,7 @@ export default function CameraScreen({}) {
         <CameraPreview photo={capturedImage} onRetake={__retakePicture} />
       ) : (
         <Camera
+          useCamera2Api={true}
           style={styles.camera}
           type={type}
           ref={(r) => {

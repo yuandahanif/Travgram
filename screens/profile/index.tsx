@@ -7,34 +7,11 @@ import {
 import { ProfileDrawerList } from "@navigation/userTab";
 import { DrawerScreenProps } from "@react-navigation/drawer";
 import { useAuthentication } from "@utils/useAuthentication";
-import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
-
-import { useMemo } from 'react'
 
 export default function ProfileScreen({
   navigation,
 }: DrawerScreenProps<ProfileDrawerList>) {
-  const { user } = useAuthentication();
-
-  const pengguna = useFirestore<f_pengguna>(FIRESTORE_ENTITY.pengguna.key, {
-    id: user?.uid,
-  });
-
-  const penggunaMemo = useMemo(() => {
-    if (!pengguna.getDocument?.data()) {
-      return {
-        alamat: '',
-        nama: '',
-        nama_pengguna: '',
-        no_hp: ''
-      }
-    }
-    console.log(user);
-    console.log(pengguna.getDocument.data());
-
-
-    return pengguna.getDocument.data()
-  }, [pengguna, user])
+  const { user, extra } = useAuthentication();
 
 
   const openDrawer = () => {
@@ -64,7 +41,7 @@ export default function ProfileScreen({
       )}
 
       <StyledText className="mt-4 text-base">
-        {penggunaMemo?.nama_pengguna}
+        {extra?.nama_pengguna}
       </StyledText>
 
       <StyledText className="mt-4 text-base">

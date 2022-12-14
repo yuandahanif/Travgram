@@ -1,17 +1,34 @@
 import React from "react";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import app from "@config/firebase";
+import { FIRESTORE_ENTITY, useFirestore } from "./useFirestore";
+import { doc, DocumentReference, getDoc, getFirestore } from "firebase/firestore";
 
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 export function useAuthentication() {
   const [user, setUser] = React.useState<User>();
+  const [extra, setExtra] = React.useState<f_pengguna>();
 
   React.useEffect(() => {
+
+    const getUserFirestore = async (id: string) => {
+      const docRef = doc(db, FIRESTORE_ENTITY.pengguna.key, id) as DocumentReference<f_pengguna>;
+      const one = await getDoc(docRef);
+      if (one.exists()) {
+        setExtra(one.data())
+      }
+    }
+
     const unsubscribeFromAuthStatuChanged = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
+
+
+        getUserFirestore(user.uid)
+
         setUser(user);
       } else {
         // User is signed out
@@ -24,5 +41,6 @@ export function useAuthentication() {
 
   return {
     user,
+    extra
   };
 }
