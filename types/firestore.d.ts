@@ -12,3 +12,10 @@ type f_kota__wisata = {
   gambar: string[];
   nama: string;
 };
+
+type f_pengguna = {
+  alamat: string;
+  nama: string;
+  nama_pengguna: string;
+  no_hp: string;
+};

@@ -22,6 +22,10 @@ export default function ProfileScreen({
     navigation.navigate('AboutUs')
   }
 
+  const toedirscreen = () => {
+    navigation.navigate('editname')
+  }
+
   return (
     <StyledSafeAreaView className="flex-1 justify-center items-center">
       {user?.photoURL ? (
@@ -49,6 +53,10 @@ export default function ProfileScreen({
 
       <StyledPressable className="bg-lime-500 px-8 py-2 rounded-lg mt-5" onPress={openDrawer}>
         <StyledText>Setting</StyledText>
+      </StyledPressable>
+
+      <StyledPressable className="bg-lime-500 px-8 py-2 rounded-lg mt-5" onPress={toedirscreen}>
+        <StyledText>Edit Profille</StyledText>
       </StyledPressable>
 
 
