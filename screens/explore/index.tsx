@@ -32,7 +32,7 @@ export default function ExploreScreen({
     return (
       <StyledPressable
         onPress={() => toQuestScreen(item?.id)}
-        className="flex-1 h-56 w-full rounded-lg relative overflow-hidden"
+        className="flex-1 h-64 w-full rounded-lg relative overflow-hidden"
       >
         <StyledImageBackground
           source={{ uri: data.gambar }}

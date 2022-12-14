@@ -51,7 +51,7 @@ export default function CityScreen({
     return (
       <StyledPressable
         onPress={() => toQuestScreen(item?.id || "")}
-        className="flex-1 h-56 w-full rounded-lg relative overflow-hidden"
+        className="flex-1 h-64 w-full rounded-lg relative overflow-hidden"
       >
         <StyledImageBackground
           source={{ uri: item.gambar[0] }}

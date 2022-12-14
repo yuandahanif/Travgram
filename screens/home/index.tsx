@@ -121,170 +121,216 @@ export default function HomeScreen({
     <SafeAreaView style={containerStyle.default}>
       <SearchHeader />
 
-<ScrollView>
+      <ScrollView>
 
 
 
-      <PointCard NavigatetoGift={toGiftScreen} />
+        <PointCard NavigatetoGift={toGiftScreen} />
 
-      <View
-        style={{
-          height: 170,
-        }}
-      >
-
-        <StyledImageBackground
-              source={{
-                uri: "https://img.okezone.com/content/2021/02/11/406/2360355/wow-wisata-dalam-negeri-diskon-hingga-95-bulan-ini-cek-link-promo-mister-aladin-di-sini-ZXw5NMluks.JPG",
-              }}
-              resizeMode="cover"
-            
-              style={[
-                styles.infoCard,
-                {
-                  marginHorizontal: 10,
-                  marginVertical: 0,
-                  width: 370,
-                  height: 170,
-                },
-              ]}
-            >
-              {/* <View>
-                <StyledText className="text-red-700">{"Diskon diluar nalar coy"}</StyledText>
-              </View> */}
-            </StyledImageBackground>
-      </View>
-
-      <StyledText className="text-left mr-auto ml-4 mb-2 mt-4 font-semibold text-lg">
-        Populer Minggu ini
-      </StyledText>
-
-      <View
-        style={{
-          height: 130,
-        }}
-      >
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {[
-            {
-              nama: "Masjid Ulil Albab UII",
-              link: "https://www.uii.ac.id/wp-content/uploads/2017/07/Ulil-Albab-UII.jpg",
-            },
-            {
-              nama: "Tugu Jogja",
-              link: "https://assets-a1.kompasiana.com/items/album/2015/07/06/tugu-yogyakarta-559a07dc0523bdd804a3117b.jpg",
-            },
-            {
-              nama: "Monas",
-              link: "https://jakarta-tourism.sgp1.cdn.digitaloceanspaces.com/images/article/8437415341664213099.jpg",
-            },
-          ].map((data) => (
-            <StyledImageBackground
-              source={{
-                uri: data.link,
-              }}
-              key={data.link}
-              style={[
-                styles.infoCard,
-                {
-                  marginHorizontal: 10,
-                  marginVertical: 0,
-                  width: 360,
-                  height: 110,
-                },
-              ]}
-            >
-              <StyledView className="flex-1 mt-auto">
-                <StyledText className="text-slate-800 ml-auto bg-white p-2 font-semibold">{data.nama}</StyledText>
-              </StyledView>
-            </StyledImageBackground>
-          ))}
-        </ScrollView>
-      </View>
-
-      <StyledText className="text-left mr-auto ml-4 mb-2 mt-4 font-semibold text-lg">
-        Lokasi wisata terdekat
-      </StyledText>
-
-      <View
-        style={{
-          height: 150,
-        }}
-      >
-        <StyledImageBackground
-          source={{
-            uri: "https://www.gudeg.net/cni-content/uploads/modules/gallery/20190412110229.jpg",
+        <StyledView
+          style={{
+            height: 240,
           }}
-          style={[
-            styles.infoCard,
-            {
-              marginHorizontal: 10,
-              marginVertical: 0,
-              width: 360,
-              height: 150,
-            },
-          ]}
         >
-          <StyledView className="flex-1 mt-auto">
-                <StyledText className="text-slate-800 ml-auto bg-white p-2 font-semibold">Merapi</StyledText>
-              </StyledView>
-        </StyledImageBackground>
-      </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {[
+              {
+                // nama: "Masjid Ulil Albab UII",
+                link: "https://sewamobiljogja.id/wp-content/uploads/2019/09/paket-liburan-ke-jogja.jpg",
+              },
+              {
+                // nama: "Tugu Jogja",
+                link: "https://img.okezone.com/content/2021/02/11/406/2360355/wow-wisata-dalam-negeri-diskon-hingga-95-bulan-ini-cek-link-promo-mister-aladin-di-sini-ZXw5NMluks.JPG",
+              },
 
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <StyledView className="flex-1 justify-center items-center">
-          <StyledView className="bg-white items-center w-5/6 p-4 py-3 shadow rounded-lg border border-blue-main">
-            <StyledText className="text-lg text-center font-semibold mb-4">
-              Absen Harian
-            </StyledText>
-
-            <StyledView className="flex-row w-full gap-2 items-center justify-center mb-2">
-              {[1, 2, 3].map((v) => (
-                <StyledPressable
-                  key={v.toString()}
-                  className={`grow bg-blue-main  py-5 rounded-md flex items-center`}
-                >
-                  <StyledText className="text-white">Hari ke {v}</StyledText>
-                </StyledPressable>
-              ))}
-            </StyledView>
-
-            <StyledView className="flex-row w-full items-center justify-center gap-x-2 mb-2">
-              {[4, 5, 6].map((v) => (
-                <StyledPressable
-                  key={v.toString()}
-                  className={`grow bg-blue-main  py-5 rounded-md flex items-center`}
-                >
-                  <StyledText className="text-white">Hari ke {v}</StyledText>
-                </StyledPressable>
-              ))}
-            </StyledView>
-
-            <StyledView className="flex-row w-full items-center justify-center px-1">
-              <StyledPressable
-                className={`grow bg-blue-main w-full py-5 rounded-md flex items-center mb-8`}
+            ].map((data) => (
+              <StyledImageBackground className="rounded-lg overflow-hidden"
+                source={{
+                  uri: data.link,
+                }}
+                key={data.link}
+                style={[
+                  {
+                    marginHorizontal: 10,
+                    marginVertical: 0,
+                    width: 360,
+                    height: 240,
+                  },
+                ]}
               >
-                <StyledText className="text-white">Hari ke 7</StyledText>
+                {/* <StyledView
+                  className="p-4 mt-auto w-full"
+                  style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
+                >
+                  <StyledText className="text-right text-white">
+                    {data.nama}
+                  </StyledText>
+                </StyledView> */}
+
+              </StyledImageBackground>
+            ))}
+          </ScrollView>
+        </StyledView>
+
+        <StyledText className="text-left mr-auto ml-4 mb-2 mt-4 font-semibold text-lg">
+          Populer Minggu ini
+        </StyledText>
+
+        <StyledView
+          style={{
+            height: 240,
+          }}
+        >
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {[
+              {
+                nama: "Masjid Ulil Albab UII",
+                link: "https://www.uii.ac.id/wp-content/uploads/2017/07/Ulil-Albab-UII.jpg",
+              },
+              {
+                nama: "Tugu Jogja",
+                link: "https://assets-a1.kompasiana.com/items/album/2015/07/06/tugu-yogyakarta-559a07dc0523bdd804a3117b.jpg",
+              },
+              {
+                nama: "Monas",
+                link: "https://jakarta-tourism.sgp1.cdn.digitaloceanspaces.com/images/article/8437415341664213099.jpg",
+              },
+            ].map((data) => (
+              <StyledImageBackground className="rounded-lg overflow-hidden"
+                source={{
+                  uri: data.link,
+                }}
+                key={data.link}
+                style={[
+                  {
+                    marginHorizontal: 10,
+                    marginVertical: 0,
+                    width: 360,
+                    height: 240,
+                  },
+                ]}
+              >
+                <StyledView
+                  className="p-4 mt-auto w-full"
+                  style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
+                >
+                  <StyledText className="text-right text-white">
+                    {data.nama}
+                  </StyledText>
+                </StyledView>
+
+              </StyledImageBackground>
+            ))}
+          </ScrollView>
+        </StyledView>
+
+        <StyledText className="text-left mr-auto ml-4 mb-2 mt-4 font-semibold text-lg">
+          Lokasi wisata terdekat
+        </StyledText>
+
+        <StyledView
+          style={{
+            height: 240,
+          }}
+        >
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {[
+              {
+                nama: "Masjid Ulil Albab UII",
+                link: "https://www.uii.ac.id/wp-content/uploads/2017/07/Ulil-Albab-UII.jpg",
+              },
+              {
+                nama: "Tugu Jogja",
+                link: "https://assets-a1.kompasiana.com/items/album/2015/07/06/tugu-yogyakarta-559a07dc0523bdd804a3117b.jpg",
+              },
+              {
+                nama: "Monas",
+                link: "https://jakarta-tourism.sgp1.cdn.digitaloceanspaces.com/images/article/8437415341664213099.jpg",
+              },
+            ].map((data) => (
+              <StyledImageBackground className="rounded-lg overflow-hidden"
+                source={{
+                  uri: data.link,
+                }}
+                key={data.link}
+                style={[
+                  {
+                    marginHorizontal: 10,
+                    marginVertical: 0,
+                    width: 360,
+                    height: 240,
+                  },
+                ]}
+              >
+                <StyledView
+                  className="p-4 mt-auto w-full"
+                  style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
+                >
+                  <StyledText className="text-right text-white">
+                    {data.nama}
+                  </StyledText>
+                </StyledView>
+
+              </StyledImageBackground>
+            ))}
+          </ScrollView>
+        </StyledView>
+
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <StyledView className="flex-1 justify-center items-center">
+            <StyledView className="bg-white items-center w-5/6 p-4 py-3 shadow rounded-lg border border-blue-main">
+              <StyledText className="text-lg text-center font-semibold mb-4">
+                Absen Harian
+              </StyledText>
+
+              <StyledView className="flex-row w-full gap-2 items-center justify-center mb-2">
+                {[1, 2, 3].map((v) => (
+                  <StyledPressable
+                    key={v.toString()}
+                    className={`grow bg-blue-main  py-5 rounded-md flex items-center`}
+                  >
+                    <StyledText className="text-white">Hari ke {v}</StyledText>
+                  </StyledPressable>
+                ))}
+              </StyledView>
+
+              <StyledView className="flex-row w-full items-center justify-center gap-x-2 mb-2">
+                {[4, 5, 6].map((v) => (
+                  <StyledPressable
+                    key={v.toString()}
+                    className={`grow bg-blue-main  py-5 rounded-md flex items-center`}
+                  >
+                    <StyledText className="text-white">Hari ke {v}</StyledText>
+                  </StyledPressable>
+                ))}
+              </StyledView>
+
+              <StyledView className="flex-row w-full items-center justify-center px-1">
+                <StyledPressable
+                  className={`grow bg-blue-main w-full py-5 rounded-md flex items-center mb-8`}
+                >
+                  <StyledText className="text-white">Hari ke 7</StyledText>
+                </StyledPressable>
+              </StyledView>
+
+              <StyledPressable
+                className="bg-lime-500 px-8 py-2 rounded-lg"
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Tutup</Text>
               </StyledPressable>
             </StyledView>
-
-            <StyledPressable
-              className="bg-lime-500 px-8 py-2 rounded-lg"
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Tutup</Text>
-            </StyledPressable>
           </StyledView>
-        </StyledView>
-      </Modal>
+        </Modal>
 
+      </ScrollView>
       <TouchableOpacity
         onPress={() => setModalVisible(true)}
         style={styles.floatingBtn}
@@ -295,7 +341,6 @@ export default function HomeScreen({
           color={COLORS["blue-main"]}
         />
       </TouchableOpacity>
-      </ScrollView>
     </SafeAreaView>
   );
 }
