@@ -16,7 +16,7 @@ const EditProfileScreen = () => {
 
   const create = () => {
     if (user?.uid) {
-      setDoc(doc(db, "pengguna", user?.uid), {
+      setDoc(doc(db, "pengguna"), {
         nama: nama,
         nama_pengguna: nama_pengguna,
         no_hp: no_hp,

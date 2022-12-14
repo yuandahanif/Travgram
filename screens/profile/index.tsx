@@ -13,6 +13,7 @@ export default function ProfileScreen({
 }: DrawerScreenProps<ProfileDrawerList>) {
   const { user } = useAuthentication();
 
+  
   const openDrawer = () => {
     navigation.openDrawer()
   }
