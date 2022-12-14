@@ -20,12 +20,14 @@ import GiftScreen from "@screens/gift";
 import ExploreDetailScreen from "@screens/explore/detail";
 import AboutUsScreen from "@screens/profile/setting/tentangkami";
 import CityScreen from "@screens/explore/city";
+import EditProfileScreen from "@screens/profile/setting/edit";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export type ProfileDrawerList = {
   Profile: undefined;
   Setting: undefined;
   AboutUs: undefined;
+  editname: undefined;
 };
 const Drawer = createDrawerNavigator<ProfileDrawerList>();
 
@@ -33,11 +35,11 @@ const ProfileDrawer = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Profile"
-      screenOptions={{ headerShown: false }}
     >
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
-      <Drawer.Screen name="Setting" component={SettingScreen} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
+      <Drawer.Screen name="Setting" component={SettingScreen}  />
       <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
+      <Drawer.Screen name="editname" component={EditProfileScreen}  options={{ title: "Edit profil" }} />
     </Drawer.Navigator>
   );
 };

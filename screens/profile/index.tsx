@@ -13,6 +13,7 @@ export default function ProfileScreen({
 }: DrawerScreenProps<ProfileDrawerList>) {
   const { user } = useAuthentication();
 
+  
   const openDrawer = () => {
     navigation.openDrawer()
   }
@@ -20,6 +21,10 @@ export default function ProfileScreen({
 
   const toAboutScreen = () => {
     navigation.navigate('AboutUs')
+  }
+
+  const toedirscreen = () => {
+    navigation.navigate('editname')
   }
 
   return (
@@ -49,6 +54,10 @@ export default function ProfileScreen({
 
       <StyledPressable className="bg-lime-500 px-8 py-2 rounded-lg mt-5" onPress={openDrawer}>
         <StyledText>Setting</StyledText>
+      </StyledPressable>
+
+      <StyledPressable className="bg-lime-500 px-8 py-2 rounded-lg mt-5" onPress={toedirscreen}>
+        <StyledText>Edit Profille</StyledText>
       </StyledPressable>
 
 

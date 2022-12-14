@@ -39,6 +39,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
 
     try {
       await createUserWithEmailAndPassword(auth, value.email, value.password);
+      // TODO: creat data di firestore
       navigation.navigate("Sign In");
     } catch (error: any) {
       setValue({
