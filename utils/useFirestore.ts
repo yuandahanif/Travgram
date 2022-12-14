@@ -19,6 +19,8 @@ import { useEffect, useState } from "react";
 export const FIRESTORE_ENTITY = {
   kota: {
     key: "kota",
+  },pengguna: {
+    key: "pengguna",
   },
 };
 
