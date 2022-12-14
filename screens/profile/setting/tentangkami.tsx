@@ -29,8 +29,8 @@ import {
             About Us
         </StyledText>
 
-        <StyledText className="px-5 mt-5 text-base">
-          TravGram adalah sebuah aplikasi yang membantu {"\n"}
+        <StyledText className="px-5 mt-5 text-base text-justify">
+          TravGram adalah aplikasi yang membantu{"\n"}
           orang-orang yang hendak melakukan liburan agar{"\n"}
           Dengan aplikasi ini  mereka akan mendapatkan{"\n"}
           tourguide terkait lokasi-lokasi yang harus mereka {"\n"}

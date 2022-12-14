@@ -34,53 +34,53 @@ const EditProfileScreen = () => {
 
   return (
     <View style={{ padding: 10 }}>
-      <StyledView className=' '>
+      <StyledView className='border-b border-r-red-50 '>
         <StyledText className='mr-2 text-lg'>
           Nama :
         </StyledText>
         <TextInput
           value={nama}
           style={{ height: 40, fontSize: 18 }}
-          placeholder="Type here to translate!"
+          // placeholder="Type here to translate!"
           onChangeText={(nama) => setnama(nama)}
           defaultValue={nama}
         />
       </StyledView>
 
-      <StyledView className=' '>
+      <StyledView className='border-b border-r-red-500'>
         <StyledText className='mr-2 text-lg'>
           Nama Pengguna :
         </StyledText>
         <TextInput
           value={nama_pengguna}
           style={{ height: 40, fontSize: 18 }}
-          placeholder="Type here to translate!"
+          // placeholder="Type here to translate!"
           onChangeText={(nama_pengguna) => setnama_namapengguna(nama_pengguna)}
           defaultValue={text}
         />
       </StyledView>
 
-      <StyledView className=' '>
+      <StyledView className='border-b border-r-red-50 '>
         <StyledText className='mr-2 text-lg'>
           No. Hp :
         </StyledText>
         <TextInput
           value={no_hp}
           style={{ height: 40, fontSize: 18 }}
-          placeholder="Type here to translate!"
+          // placeholder="Type here to translate!"
           onChangeText={(no_hp) => setno_hp(no_hp)}
           defaultValue={text}
         />
       </StyledView>
 
-      <StyledView className=' '>
+      <StyledView className=' border-b border-r-red-50'>
         <StyledText className='mr-2 text-lg'>
           Alamat :
         </StyledText>
         <TextInput
           value={alamat}
           style={{ height: 40, fontSize: 18 }}
-          placeholder="Type here to translate!"
+          // placeholder="Type here to translate!"
           onChangeText={(alamat) => setalamat(alamat)}
           defaultValue={text}
         />
