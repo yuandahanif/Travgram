@@ -9,7 +9,6 @@ import {
 import { FlatList, ListRenderItem, ScrollView } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useMemo } from "react";
 import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
 
@@ -42,28 +41,40 @@ export default function ExploreDetailScreen({
     </StyledView>
   );
 
+  const toCamera = () => {
+    navigation.navigate("Camera");
+  };
+
   return (
-    <StyledSafeAreaView className="flex-1">
-      <StyledView className="flex-1 items-center p-5">
-        <ScrollView>
-          <StyledText className="text-black text-2xl font-semibold">
-            {wisataMemo.nama}
+    <StyledView className="flex-1 items-center">
+      <ScrollView>
+        <StyledText className="mx-2 mt-2 text-black text-2xl font-bold">
+          {wisataMemo.nama}
+        </StyledText>
+
+        <StyledView className="my-4 mx-2">
+          <FlatList
+            horizontal
+            data={[...wisataMemo.gambar.slice(1)]}
+            renderItem={ListRenderer}
+            keyExtractor={(item) => `${item}`}
+          />
+        </StyledView>
+
+        <StyledView className="mx-2">
+          <StyledText className=" text-base text-justify">
+            {wisataMemo.deskripsi}
           </StyledText>
+        </StyledView>
 
-          <StyledView className="my-2 w-full">
-            <StyledText>{wisataMemo.deskripsi}</StyledText>
-          </StyledView>
-
-          <StyledView className="mb-6">
-            <FlatList
-              horizontal
-              data={[...wisataMemo.gambar.slice(1)]}
-              renderItem={ListRenderer}
-              keyExtractor={(item) => `${item}`}
-            />
-          </StyledView>
-        </ScrollView>
-      </StyledView>
-    </StyledSafeAreaView>
+        <StyledView className="w-full">
+          <StyledText className=" text-base text-justify">
+            <StyledPressable onPress={toCamera}>
+              <StyledText>Kamera</StyledText>
+            </StyledPressable>
+          </StyledText>
+        </StyledView>
+      </ScrollView>
+    </StyledView>
   );
 }

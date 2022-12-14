@@ -11,10 +11,8 @@ export default function App() {
 
   return (
     <>
-      <SafeAreaProvider>
-        <StatusBar style="auto" />
-        {user ? <UserTab /> : <AuthStack />}
-      </SafeAreaProvider>
+      <StatusBar style="light" />
+      {user ? <UserTab /> : <AuthStack />}
     </>
   );
 }

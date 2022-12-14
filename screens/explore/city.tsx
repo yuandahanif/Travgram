@@ -72,10 +72,10 @@ export default function CityScreen({
   };
 
   return (
-    <StyledSafeAreaView className="flex-1 px-2">
+    <StyledView className="flex-1 p-2">
       {kota.getDocument?.data() && (
         <>
-          <StyledText className="text-lg font-semibold mb-4">
+          <StyledText className="text-lg font-semibold mb-3">
             Jelajahi Objek wisata {kota.getDocument?.data()?.nama}
           </StyledText>
 
@@ -91,6 +91,6 @@ export default function CityScreen({
           </StyledView>
         </>
       )}
-    </StyledSafeAreaView>
+    </StyledView>
   );
 }

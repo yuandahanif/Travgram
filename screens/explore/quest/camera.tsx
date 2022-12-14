@@ -4,20 +4,63 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   Button,
 } from "react-native";
-import { Camera, CameraType } from "expo-camera";
+import { Camera, CameraCapturedPicture, CameraType } from "expo-camera";
 import { useState } from "react";
 
-import { Pressable } from "react-native";
-import textStyle from "@styles/text.style";
 import { COLORS } from "@config/constant";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  StyledImageBackground,
+  StyledText,
+  StyledTouchableOpacity,
+  StyledView,
+} from "@components/styled";
+import { Ionicons } from "@expo/vector-icons";
+
+const CameraPreview = ({
+  photo,
+  onRetake,
+}: {
+  photo: CameraCapturedPicture;
+  onRetake: () => void;
+}) => {
+  return (
+    <StyledView className="flex-1 w-full h-full">
+      <StyledImageBackground
+        source={{ uri: photo && photo.uri }}
+        className="flex-1"
+      >
+        <StyledView className="flex-row mt-auto mb-4 py-5 bg-white justify-around">
+          <StyledTouchableOpacity onPress={onRetake} className="">
+            <StyledText>Ambil Ulang</StyledText>
+          </StyledTouchableOpacity>
+          <StyledTouchableOpacity className="">
+            <StyledText>Simpan</StyledText>
+          </StyledTouchableOpacity>
+        </StyledView>
+      </StyledImageBackground>
+    </StyledView>
+  );
+};
 
 export default function CameraScreen({}) {
+  let camera: Camera;
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [capturedImage, setCapturedImage] =
+    useState<CameraCapturedPicture | null>(null);
+
+  const __takePicture = async () => {
+    if (!camera) return;
+    const photo = await camera.takePictureAsync();
+    setCapturedImage(photo);
+  };
+
+  const __retakePicture = () => {
+    setCapturedImage(null);
+  };
 
   if (!permission) {
     // Camera permissions are still loading
@@ -44,13 +87,29 @@ export default function CameraScreen({}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Camera style={styles.camera} type={type} ratio="16:9">
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
+      {capturedImage ? (
+        <CameraPreview photo={capturedImage} onRetake={__retakePicture} />
+      ) : (
+        <Camera
+          style={styles.camera}
+          type={type}
+          ref={(r) => {
+            camera = r!!;
+          }}
+          ratio="16:9"
+        >
+          <StyledView className="flex-row mt-auto pb-6 justify-center">
+            <StyledTouchableOpacity
+              onPress={__takePicture}
+              className="h-16 w-16 bg-white rounded-full"
+            />
+
+            {/* <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
             <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+          </TouchableOpacity> */}
+          </StyledView>
+        </Camera>
+      )}
     </SafeAreaView>
   );
 }
@@ -63,12 +122,6 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
-  },
-  buttonContainer: {
-    flex: 1,
-    flexDirection: "row",
-    backgroundColor: "transparent",
-    margin: 64,
   },
   button: {
     flex: 1,

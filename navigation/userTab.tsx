@@ -20,6 +20,7 @@ import GiftScreen from "@screens/gift";
 import ExploreDetailScreen from "@screens/explore/detail";
 import AboutUsScreen from "@screens/profile/setting/tentangkami";
 import CityScreen from "@screens/explore/city";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export type ProfileDrawerList = {
   Profile: undefined;
@@ -72,7 +73,11 @@ const ExploreStack = () => {
         options={{ title: "Kota" }}
       />
       <Stack.Screen name="Quest" component={QuestScreen} />
-      <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen
+        name="Camera"
+        component={CameraScreen}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -87,48 +92,50 @@ export type BottomTabParamList = {
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 export default function UserTab() {
   return (
-    <NavigationContainer theme={DefaultTheme}>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarActiveTintColor: COLORS["blue-main"],
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ExploreStack"
-          component={ExploreStack}
-          options={{
-            tabBarLabel: "Jelajah",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="map-outline" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Gift"
-          component={GiftScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="gift-outline" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ProfileDrawer"
-          component={ProfileDrawer}
-          options={{
-            tabBarLabel: "Profile",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-circle" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer theme={DefaultTheme}>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarActiveTintColor: COLORS["blue-main"],
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="home" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="ExploreStack"
+            component={ExploreStack}
+            options={{
+              tabBarLabel: "Jelajah",
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="map-outline" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Gift"
+            component={GiftScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="gift-outline" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="ProfileDrawer"
+            component={ProfileDrawer}
+            options={{
+              tabBarLabel: "Profile",
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="person-circle" color={color} size={size} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
