@@ -44,50 +44,26 @@ export default function ExploreDetailScreen({
 
   return (
     <StyledSafeAreaView className="flex-1">
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <StyledImageBackground
-          className="flex-1 w-full bg-cyan-300"
-          source={{
-            uri:
-              wisataMemo.gambar[0] ||
-              "https://safebooru.org//images/3991/297975c6585c8bd315a2d274997e7463947c28fc.jpg",
-          }}
-        >
-          {/* <GestureDetector gesture={onDrag}> */}
-          <StyledView className="flex-1 pt-20 items-center">
-            <StyledView
-              className="flex-1 p-5 py-5 rounded-t-lg w-11/12"
-              style={{ backgroundColor: "rgba(255,255,255,1)" }}
-            >
-              <ScrollView>
-                <StyledText className="text-black text-2xl font-semibold">
-                  {wisataMemo.nama}
-                </StyledText>
+      <StyledView className="flex-1 items-center p-5">
+        <ScrollView>
+          <StyledText className="text-black text-2xl font-semibold">
+            {wisataMemo.nama}
+          </StyledText>
 
-                <StyledView className="my-2 w-full">
-                  <StyledText>{wisataMemo.deskripsi}</StyledText>
-                </StyledView>
-
-                <StyledView className="mb-6">
-                  <FlatList
-                    horizontal
-                    data={[
-                      ...wisataMemo.gambar.slice(1),
-                      // "https://safebooru.org//images/3976/68e8e629c133ea5220b655d722beb2a9f57e2497.jpg",
-                      // "https://safebooru.org//samples/3974/sample_ccc853861ab89c8f8ff293e905fc75c02bb6fad0.jpg",
-                      // "https://safebooru.org//images/4049/9499cab519c579f31a209f5d22d282c96941a52d.jpg",
-                      // "https://safebooru.org//samples/3964/sample_790bdb87777f25a8f04e1646a27ad6a6c1d19c60.jpg",
-                    ]}
-                    renderItem={ListRenderer}
-                    keyExtractor={(item) => `${item}`}
-                  />
-                </StyledView>
-              </ScrollView>
-            </StyledView>
+          <StyledView className="my-2 w-full">
+            <StyledText>{wisataMemo.deskripsi}</StyledText>
           </StyledView>
-          {/* </GestureDetector> */}
-        </StyledImageBackground>
-      </GestureHandlerRootView>
+
+          <StyledView className="mb-6">
+            <FlatList
+              horizontal
+              data={[...wisataMemo.gambar.slice(1)]}
+              renderItem={ListRenderer}
+              keyExtractor={(item) => `${item}`}
+            />
+          </StyledView>
+        </ScrollView>
+      </StyledView>
     </StyledSafeAreaView>
   );
 }

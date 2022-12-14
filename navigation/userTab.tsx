@@ -53,12 +53,24 @@ const Stack = createStackNavigator<ExploreStackParamList>();
 const ExploreStack = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false }}
+      // screenOptions={{ headerShown: false }}
       initialRouteName="Explore"
     >
-      <Stack.Screen name="Explore" component={ExploreScreen} />
-      <Stack.Screen name="Detail" component={ExploreDetailScreen} />
-      <Stack.Screen name="City" component={CityScreen} />
+      <Stack.Screen
+        name="Explore"
+        component={ExploreScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Detail"
+        component={ExploreDetailScreen}
+        options={{ title: "Detail" }}
+      />
+      <Stack.Screen
+        name="City"
+        component={CityScreen}
+        options={{ title: "Kota" }}
+      />
       <Stack.Screen name="Quest" component={QuestScreen} />
       <Stack.Screen name="Camera" component={CameraScreen} />
     </Stack.Navigator>

@@ -72,31 +72,25 @@ export default function CityScreen({
   };
 
   return (
-    <StyledSafeAreaView style={containerStyle.default}>
-      <StyledView className="flex-1 w-full p-2">
-        <StyledText className="text-lg font-semibold mb-2">
-          Jelajahi Objek wisata
-        </StyledText>
+    <StyledSafeAreaView className="flex-1 px-2">
+      {kota.getDocument?.data() && (
+        <>
+          <StyledText className="text-lg font-semibold mb-4">
+            Jelajahi Objek wisata {kota.getDocument?.data()?.nama}
+          </StyledText>
 
-        {kota.getDocument?.data() && (
-          <>
-            <StyledView>
-              <StyledText>{kota.getDocument?.data()?.nama}</StyledText>
-            </StyledView>
-
-            <StyledView className="pb-5">
-              <FlatList
-                data={wisataMemo}
-                renderItem={ListRenderer}
-                extraData={toQuestScreen}
-                keyExtractor={(item) => {
-                  return `${item.id}`;
-                }}
-              />
-            </StyledView>
-          </>
-        )}
-      </StyledView>
+          <StyledView className="pb-5">
+            <FlatList
+              data={wisataMemo}
+              renderItem={ListRenderer}
+              extraData={toQuestScreen}
+              keyExtractor={(item) => {
+                return `${item.id}`;
+              }}
+            />
+          </StyledView>
+        </>
+      )}
     </StyledSafeAreaView>
   );
 }

@@ -7,7 +7,6 @@ import {
 import { ProfileDrawerList } from "@navigation/userTab";
 import { DrawerScreenProps } from "@react-navigation/drawer";
 import { useAuthentication } from "@utils/useAuthentication";
-import { Pressable } from "react-native";
 
 export default function ProfileScreen({
   navigation,
@@ -32,7 +31,7 @@ export default function ProfileScreen({
           source={{
             uri: "https://safebooru.org//samples/4049/sample_80dedcf6518f3d50c3d7a5073266f7fa2bb7c536.jpg?",
           }}
-          className="w-40 h-40"
+          className="w-40 h-40 rounded-lg overflow-hidden"
         />
       )}
 
