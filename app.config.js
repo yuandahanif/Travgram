@@ -27,7 +27,13 @@ export default {
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#121212",
-        permissions: ["CAMERA", "ACCESS_FINE_LOCATION"],
+        permissions: [
+          "CAMERA",
+          "ACCESS_FINE_LOCATION",
+          "READ_EXTERNAL_STORAGE",
+          "WRITE_EXTERNAL_STORAGE",
+          "INTERNET",
+        ],
       },
     },
     web: {
