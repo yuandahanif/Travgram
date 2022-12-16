@@ -9,7 +9,6 @@ import { getAuth, signOut } from 'firebase/auth';
 
 const auth = getAuth(app);
 
-
 const EditProfileScreen = () => {
   const { user, extra } = useAuthentication();
 

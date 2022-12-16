@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Camera, CameraCapturedPicture, CameraType } from "expo-camera";
 import { useState } from "react";
+import { db } from "@config/firebase";
 
 import { COLORS } from "@config/constant";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -22,6 +23,7 @@ import * as FileSystem from "expo-file-system";
 import { useStorage } from "@utils/useStorage";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useAuthentication } from "@utils/useAuthentication";
+import { doc, setDoc, addDoc, collection } from "firebase/firestore";
 
 const { uploadByte } = useStorage();
 
@@ -85,6 +87,7 @@ export default function CameraScreen({}) {
     setIsUploading(true);
     try {
       if (capturedImage) {
+        const fileId = `${new Date().toISOString()}-${user?.uid}`;
         const blob: Blob = await new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
           xhr.onload = function () {
@@ -99,23 +102,35 @@ export default function CameraScreen({}) {
           xhr.send(null);
         });
 
-        await uploadByte({
+        const up = await uploadByte({
           child: "userUpload",
-          fileName: `${new Date().toISOString()}-${user?.uid}`,
+          fileName: fileId,
           file: blob,
         });
+        console.log('file: camera.tsx:110 ~ const__uploadPicture= ~ up', up)
 
-        console.log(
-          "file: camera.tsx:86 ~ constblob:Blob=awaitnewPromise ~ blob",
-          blob
-        );
-
-        Toast.show({
-          type: "success",
-          text1: "Sukses!",
-          text2: "Berhasil Mengunggah gambar.",
-        });
-        setIsUploading(false);
+        if (user?.uid) {
+          addDoc(collection(db, "user-upload"), {
+            file_id: up.metadata.fullPath,
+            kota_id: "",
+            like: 0,
+            user_id: user.uid,
+            wisata_id: "",
+          })
+            .then(() => {
+              Toast.show({
+                type: "success",
+                text1: "Sukses!",
+                text2: "Berhasil Mengunggah gambar.",
+              });
+              setIsUploading(false);
+            })
+            .catch((error) => {
+              throw new Error("error firestore");
+            });
+        } else {
+          throw new Error("error uid not found");
+        }
       }
     } catch (error) {
       Toast.show({

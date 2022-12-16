@@ -20,8 +20,8 @@ export function useStorage() {
     try {
       const storageRef = ref(storage, STORAGE_PATHS[child] + "/" + fileName);
 
-      await uploadBytes(storageRef, file).then((snapshot) => {
-        return true;
+      return await uploadBytes(storageRef, file).then((snapshot) => {
+        return snapshot;
       });
     } catch (error) {
       console.log(error);
