@@ -23,7 +23,7 @@ import * as FileSystem from "expo-file-system";
 import { useStorage } from "@utils/useStorage";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useAuthentication } from "@utils/useAuthentication";
-import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
 
@@ -122,6 +122,7 @@ export default function CameraScreen({
             like: 0,
             user_id: user.uid,
             wisata_id: param.wisataId,
+            waktu_unggah: serverTimestamp()
           })
             .then(() => {
               Toast.show({

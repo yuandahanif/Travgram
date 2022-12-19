@@ -10,10 +10,8 @@ import { FlatList, ListRenderItem, ScrollView } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
 import { useMemo } from "react";
-import {
-  FIRESTORE_ENTITY,
-  useDocument,
-} from "@utils/useFirestore";
+import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export default function ExploreDetailScreen({
   navigation,
@@ -46,7 +44,13 @@ export default function ExploreDetailScreen({
     if (wisataMemo) {
       navigation.navigate("Camera", {
         cityId: param?.cityId,
-        wisataId: wisataMemo?.id || "",
+        wisataId: param?.wisataId,
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Gagal Membuka kamera.",
       });
     }
   };

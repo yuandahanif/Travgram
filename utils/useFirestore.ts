@@ -1,13 +1,9 @@
 import {
-  query,
   getFirestore,
   collection,
   QuerySnapshot,
-  where,
   CollectionReference,
-  WhereFilterOp,
   doc,
-  getDoc,
   DocumentReference,
   DocumentSnapshot,
   onSnapshot,
