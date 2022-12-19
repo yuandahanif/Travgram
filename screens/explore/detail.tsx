@@ -40,6 +40,21 @@ export default function ExploreDetailScreen({
     </StyledView>
   );
 
+  const toQuest = () => {
+    if (wisataMemo) {
+      navigation.navigate("Quest", {
+        cityId: param?.cityId,
+        wisataId: param?.wisataId,
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Gagal Membuka kamera.",
+      });
+    }
+  };
+
   const toCamera = () => {
     if (wisataMemo) {
       navigation.navigate("Camera", {
@@ -74,15 +89,15 @@ export default function ExploreDetailScreen({
         <StyledView className="mx-2 py-4 flex-row justify-evenly">
           <StyledPressable className="items-center" onPress={toCamera}>
             <Ionicons name="md-camera-outline" size={24} color="black" />
-            <StyledText>Kamera</StyledText>
+            <StyledText className="text-xs">Kamera</StyledText>
           </StyledPressable>
-          <StyledPressable className="items-center" onPress={toCamera}>
+          <StyledPressable className="items-center" onPress={toQuest}>
             <Ionicons name="list-outline" size={24} color="black" />
-            <StyledText>Quest</StyledText>
+            <StyledText className="text-xs">Quest</StyledText>
           </StyledPressable>
           <StyledPressable className="items-center" onPress={toCamera}>
             <Ionicons name="compass-outline" size={24} color="black" />
-            <StyledText>Rute</StyledText>
+            <StyledText className="text-xs">Rute</StyledText>
           </StyledPressable>
         </StyledView>
 

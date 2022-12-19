@@ -33,20 +33,26 @@ const Drawer = createDrawerNavigator<ProfileDrawerList>();
 
 const ProfileDrawer = () => {
   return (
-    <Drawer.Navigator
-      initialRouteName="Profile"
-    >
-      <Drawer.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
-      <Drawer.Screen name="Setting" component={SettingScreen}  />
+    <Drawer.Navigator initialRouteName="Profile">
+      <Drawer.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen name="Setting" component={SettingScreen} />
       <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
-      <Drawer.Screen name="editname" component={EditProfileScreen}  options={{ title: "Edit profil" }} />
+      <Drawer.Screen
+        name="editname"
+        component={EditProfileScreen}
+        options={{ title: "Edit profil" }}
+      />
     </Drawer.Navigator>
   );
 };
 
 export type ExploreStackParamList = {
   Explore: undefined;
-  Quest: undefined;
+  Quest: { cityId: string; wisataId: string };
   Detail: { cityId: string; wisataId: string };
   Camera: { cityId: string; wisataId: string };
   City: { cityId: string };

@@ -1,33 +1,98 @@
 import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+  StyledImage,
+  StyledPressable,
+  StyledText,
+  StyledView,
+} from "@components/styled";
+import { FlatList, ListRenderItem, ScrollView } from "react-native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { ExploreStackParamList } from "@navigation/userTab";
+import { useMemo } from "react";
+import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
-import { Pressable } from "react-native";
-import textStyle from "@styles/text.style";
-import { COLORS } from "@config/constant";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function QuestScreen({}) {
+export default function ExploreQuestScreen({
+  navigation,
+  route,
+}: StackScreenProps<ExploreStackParamList, "Quest">) {
+  const param = route.params;
 
+  const kota = useDocument<f_kota>(FIRESTORE_ENTITY.kota.key, param?.cityId);
+
+  const questMemo = useMemo<f_quest[]>(() => {
+    if (!kota?.data()?.wisata[param?.wisataId]?.quests == undefined) {
+      return [];
+    }
+
+    const res: f_quest[] = [];
+    const data = kota?.data()?.wisata[param?.wisataId]?.quests;
+
+    for (const key in data) {
+      res.push({ ...data[key], id: key });
+    }
+
+    return res;
+  }, [kota]);
+
+  const ListRenderer: ListRenderItem<f_quest> = ({ item }) => (
+    <StyledView
+      className={`overflow-hidden mr-2 mb-4 flex-row justify-between items-center`}
+    >
+      <StyledView className="rounded-md overflow-hidden">
+        <StyledImage
+          source={{ uri: item.file_urls[0] }}
+          className="h-28 w-28"
+        />
+      </StyledView>
+
+      <StyledView className="items-start justify-start flex-1 h-full bg-red-100">
+        <StyledText className="text-black text-lg font-bold">
+          {item.nama}
+        </StyledText>
+      </StyledView>
+
+      <StyledPressable className="items-center" onPress={toCamera}>
+        <Ionicons name="md-camera-outline" size={24} color="black" />
+        <StyledText className="text-xs">Kamera</StyledText>
+      </StyledPressable>
+    </StyledView>
+  );
+
+  const toCamera = () => {
+    if (questMemo) {
+      navigation.navigate("Camera", {
+        cityId: param?.cityId,
+        wisataId: param?.wisataId,
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Gagal Membuka kamera.",
+      });
+    }
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Pressable>
-        <Text style={textStyle.textMain}>mmm</Text>
-      </Pressable>
-    </SafeAreaView>
+    <StyledView className="flex-1 w-full">
+      <StyledText className="mx-2 mt-2">
+        Objek yang tidak boleh anda lewatkan di:
+      </StyledText>
+      <StyledText className="mx-2 text-black text-2xl font-bold">
+        {kota?.data()?.nama}
+      </StyledText>
+
+      <StyledView className="my-4 mx-2">
+        <FlatList
+          data={questMemo}
+          renderItem={ListRenderer}
+          keyExtractor={(item) => `${item}`}
+        />
+      </StyledView>
+
+      <StyledView className="mx-2 py-4 "></StyledView>
+    </StyledView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS["bg-main"],
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
