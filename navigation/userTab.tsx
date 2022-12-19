@@ -23,6 +23,7 @@ import CityScreen from "@screens/explore/city";
 import EditProfileScreen from "@screens/profile/setting/edit";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ExploreTrackScreen from "@screens/explore/route";
+import ExploreGalleryScreen from "@screens/explore/gallery";
 
 export type ProfileDrawerList = {
   Profile: undefined;
@@ -56,7 +57,8 @@ export type ExploreStackParamList = {
   Route: { cityId: string; wisataId: string };
   Quest: { cityId: string; wisataId: string };
   Detail: { cityId: string; wisataId: string };
-  Camera: { cityId: string; wisataId: string };
+  Camera: { cityId: string; wisataId: string; questId: string };
+  Gallery: { cityId: string; wisataId: string };
   City: { cityId: string };
 };
 
@@ -82,8 +84,13 @@ const ExploreStack = () => {
         component={CityScreen}
         options={{ title: "Kota" }}
       />
-      <Stack.Screen name="Route" component={ExploreTrackScreen} />
+      <Stack.Screen
+        name="Route"
+        component={ExploreTrackScreen}
+        options={{ title: "Rute" }}
+      />
       <Stack.Screen name="Quest" component={QuestScreen} />
+      <Stack.Screen name="Gallery" component={ExploreGalleryScreen} />
       <Stack.Screen
         name="Camera"
         component={CameraScreen}

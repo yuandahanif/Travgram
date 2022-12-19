@@ -1,10 +1,10 @@
 import app from "@config/firebase";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const storage = getStorage(app);
 
 export const STORAGE_PATHS = {
-  userUpload: "/user-uploads",
+  userUpload: "/user-uploads/",
 };
 
 export function useStorage() {
@@ -18,7 +18,7 @@ export function useStorage() {
     file: Blob | Uint8Array | ArrayBuffer;
   }) => {
     try {
-      const storageRef = ref(storage, STORAGE_PATHS[child] + "/" + fileName);
+      const storageRef = ref(storage, STORAGE_PATHS[child] + fileName);
 
       return await uploadBytes(storageRef, file).then((snapshot) => {
         return snapshot;
@@ -29,5 +29,17 @@ export function useStorage() {
     }
   };
 
-  return { uploadByte };
+  const getMetadata = (fullPath: string) => {
+    const pathReference = ref(storage, fullPath);
+
+    return pathReference;
+  };
+
+  const getUrl = async (fullPath: string) => {
+    const url = await getDownloadURL(ref(storage, fullPath));
+
+    return url;
+  };
+
+  return { uploadByte, getMetadata, getUrl };
 }

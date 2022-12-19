@@ -1,6 +1,4 @@
 import {
-  Image,
-  ImageSourcePropType,
   StyleSheet,
   Text,
   View,
@@ -19,13 +17,17 @@ import {
   StyledTouchableOpacity,
   StyledView,
 } from "@components/styled";
-import * as FileSystem from "expo-file-system";
 import { useStorage } from "@utils/useStorage";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useAuthentication } from "@utils/useAuthentication";
-import { doc, setDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
+import { f_user_upload } from "types/firestore";
 
 const { uploadByte } = useStorage();
 
@@ -67,9 +69,8 @@ const CameraPreview = ({
 export default function CameraScreen({
   route,
 }: StackScreenProps<ExploreStackParamList, "Camera">) {
-  const param = route.params;
   let camera: Camera;
-
+  const param = route.params;
   const { user } = useAuthentication();
 
   const [type, setType] = useState(CameraType.back);
@@ -113,17 +114,21 @@ export default function CameraScreen({
           fileName: fileId,
           file: blob,
         });
-        console.log("file: camera.tsx:110 ~ const__uploadPicture= ~ up", up);
+
+        const data: f_user_upload = {
+          file_id: up.metadata.fullPath,
+          kota_id: param.cityId,
+          like: 0,
+          user_id: user?.uid || "no user id",
+          quest_id: param.questId,
+          is_accepted: false,
+          wisata_id: param.wisataId,
+          waktu_unggah: serverTimestamp(),
+        };
+        console.log('file: camera.tsx:128 ~ const__uploadPicture= ~ data', data)
 
         if (user?.uid) {
-          addDoc(collection(db, "user-upload"), {
-            file_id: up.metadata.fullPath,
-            kota_id: param.cityId,
-            like: 0,
-            user_id: user.uid,
-            wisata_id: param.wisataId,
-            waktu_unggah: serverTimestamp()
-          })
+          addDoc(collection(db, "user-upload"), data)
             .then(() => {
               Toast.show({
                 type: "success",
@@ -183,7 +188,7 @@ export default function CameraScreen({
         />
       ) : (
         <Camera
-          useCamera2Api={true}
+          // useCamera2Api={true}
           style={styles.camera}
           type={type}
           ref={(r) => {

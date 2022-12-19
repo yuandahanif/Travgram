@@ -7,6 +7,12 @@ import {
   DocumentReference,
   DocumentSnapshot,
   onSnapshot,
+  query,
+  where,
+  FieldPath,
+  WhereFilterOp,
+  getDocs,
+  QueryConstraint,
 } from "firebase/firestore";
 import app from "@config/firebase";
 import { useEffect, useState } from "react";
@@ -18,10 +24,14 @@ export const FIRESTORE_ENTITY = {
   pengguna: {
     key: "pengguna",
   },
+  "user-upload": {
+    key: "user-upload",
+  },
 };
 
+const db = getFirestore(app);
+
 export function useCollection<T>(entity: string) {
-  const db = getFirestore(app);
   const cols = collection(db, entity) as CollectionReference<T>;
 
   const [queryRes, setQueryRes] = useState<QuerySnapshot<T> | undefined>(
@@ -46,7 +56,6 @@ export function useCollection<T>(entity: string) {
 }
 
 export function useDocument<T>(entity: string, id: string) {
-  const db = getFirestore(app);
   const docRef = doc(db, entity, id) as DocumentReference<T>;
 
   const [documentRes, setDocumentRes] = useState<
@@ -56,6 +65,43 @@ export function useDocument<T>(entity: string, id: string) {
   useEffect(() => {
     const unsubscribe = onSnapshot(
       docRef,
+      (data) => {
+        setDocumentRes(data);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  return documentRes;
+}
+
+export function useFQuery<T>(
+  entity: string,
+  statements: {
+    fieldPath: string | FieldPath;
+    opStr: WhereFilterOp;
+    value: string;
+  }[]
+) {
+  const wheres: QueryConstraint[] = [];
+  const docRef = collection(db, entity) as CollectionReference<T>;
+  const [documentRes, setDocumentRes] = useState<QuerySnapshot<T> | undefined>(
+    undefined
+  );
+
+  statements.forEach((s) => {
+    wheres.push(where(s.fieldPath, s.opStr, s.value));
+  });
+
+  const q = query(docRef, ...wheres);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      q,
       (data) => {
         setDocumentRes(data);
       },

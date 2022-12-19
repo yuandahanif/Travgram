@@ -12,6 +12,7 @@ import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import { Ionicons } from "@expo/vector-icons";
+import { f_kota, f_quest } from "types/firestore";
 
 export default function ExploreQuestScreen({
   navigation,
@@ -20,7 +21,6 @@ export default function ExploreQuestScreen({
   const param = route.params;
 
   const kota = useDocument<f_kota>(FIRESTORE_ENTITY.kota.key, param?.cityId);
-
   const questMemo = useMemo<f_quest[]>(() => {
     if (!kota?.data()?.wisata[param?.wisataId]?.quests) {
       return [];
@@ -35,6 +35,22 @@ export default function ExploreQuestScreen({
 
     return res;
   }, [kota]);
+
+  const toCamera = (questId: string) => {
+    if (questMemo) {
+      navigation.navigate("Camera", {
+        cityId: param?.cityId,
+        wisataId: param?.wisataId,
+        questId: questId,
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Gagal Membuka kamera.",
+      });
+    }
+  };
 
   const ListRenderer: ListRenderItem<f_quest> = ({ item }) => (
     <StyledView
@@ -56,27 +72,15 @@ export default function ExploreQuestScreen({
         </StyledText>
       </StyledView>
 
-      <StyledPressable className="items-center" onPress={toCamera}>
+      <StyledPressable
+        className="items-center"
+        onPress={() => toCamera(item.id || "")}
+      >
         <Ionicons name="md-camera-outline" size={24} color="black" />
         <StyledText className="text-xs">Kamera</StyledText>
       </StyledPressable>
     </StyledView>
   );
-
-  const toCamera = () => {
-    if (questMemo) {
-      navigation.navigate("Camera", {
-        cityId: param?.cityId,
-        wisataId: param?.wisataId,
-      });
-    } else {
-      Toast.show({
-        type: "error",
-        text1: "Error",
-        text2: "Gagal Membuka kamera.",
-      });
-    }
-  };
 
   return (
     <StyledView className="flex-1 w-full">

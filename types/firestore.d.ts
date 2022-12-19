@@ -1,3 +1,5 @@
+import { FieldValue } from "firebase/firestore";
+
 type f_quest = {
   id?: string;
   deskripsi: string;
@@ -38,6 +40,8 @@ type f_user_upload = {
   kota_id: string;
   like: number;
   wisata_id: string;
-  waktu_unggah: string;
+  quest_id: string;
+  user_id: string;
+  waktu_unggah: FieldValue;
   is_accepted: boolean;
 };

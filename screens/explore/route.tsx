@@ -1,11 +1,10 @@
-import { StyledPressable, StyledText, StyledView } from "@components/styled";
+import { StyledText, StyledView } from "@components/styled";
 import { FlatList, ListRenderItem } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
 import { useMemo } from "react";
 import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { Ionicons } from "@expo/vector-icons";
+import { f_kota } from "types/firestore";
 
 export default function ExploreTrackScreen({
   navigation,

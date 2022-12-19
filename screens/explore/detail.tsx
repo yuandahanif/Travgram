@@ -12,6 +12,7 @@ import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import { Ionicons } from "@expo/vector-icons";
+import { f_kota, f_kota__wisata } from "types/firestore";
 
 export default function ExploreDetailScreen({
   navigation,
@@ -70,9 +71,9 @@ export default function ExploreDetailScreen({
     }
   };
 
-  const toCamera = () => {
+  const toGallery = () => {
     if (wisataMemo) {
-      navigation.navigate("Camera", {
+      navigation.navigate("Gallery", {
         cityId: param?.cityId,
         wisataId: param?.wisataId,
       });
@@ -95,16 +96,16 @@ export default function ExploreDetailScreen({
         <StyledView className="my-4 mx-2">
           <FlatList
             horizontal
-            data={[...wisataMemo.gambar.slice(1)]}
+            data={[...wisataMemo.gambar]}
             renderItem={ListRenderer}
             keyExtractor={(item) => `${item}`}
           />
         </StyledView>
 
         <StyledView className="mx-2 py-4 flex-row justify-evenly">
-          <StyledPressable className="items-center" onPress={toCamera}>
-            <Ionicons name="md-camera-outline" size={24} color="black" />
-            <StyledText className="text-xs">Kamera</StyledText>
+          <StyledPressable className="items-center" onPress={toGallery}>
+            <Ionicons name="image-outline" size={24} color="black" />
+            <StyledText className="text-xs">Galeri</StyledText>
           </StyledPressable>
           <StyledPressable className="items-center" onPress={toQuest}>
             <Ionicons name="list-outline" size={24} color="black" />
