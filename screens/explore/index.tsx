@@ -12,7 +12,7 @@ import {
 
 import { ExploreStackParamList } from "@navigation/userTab";
 import { StackScreenProps } from "@react-navigation/stack";
-import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
+import { FIRESTORE_ENTITY, useCollection } from "@utils/useFirestore";
 import { QueryDocumentSnapshot } from "firebase/firestore";
 
 export default function ExploreScreen({
@@ -22,7 +22,7 @@ export default function ExploreScreen({
     navigation.navigate("City", { cityId: id });
   };
 
-  const kota = useFirestore<f_kota>(FIRESTORE_ENTITY.kota.key);
+  const kota = useCollection<f_kota>(FIRESTORE_ENTITY.kota.key);
 
   const ListRenderer: ListRenderItem<QueryDocumentSnapshot<f_kota>> = ({
     item,
@@ -63,8 +63,7 @@ export default function ExploreScreen({
 
         <StyledView className="pb-5">
           <FlatList
-            data={kota?.getQuery?.docs || []}
-            // onRefresh={() => {kota.getQuery}}
+            data={kota?.docs || []}
             renderItem={ListRenderer}
             extraData={toQuestScreen}
             keyExtractor={(item) => {

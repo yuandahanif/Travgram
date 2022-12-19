@@ -19,3 +19,11 @@ type f_pengguna = {
   nama_pengguna: string;
   no_hp: string;
 };
+
+type f_user_upload = {
+  file_id: string;
+  kota_id: string;
+  like: number;
+  wisata_id: string;
+  waktu_unggah: string;
+};

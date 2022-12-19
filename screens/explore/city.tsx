@@ -4,14 +4,13 @@ import containerStyle from "@styles/container.style";
 import {
   StyledImageBackground,
   StyledPressable,
-  StyledSafeAreaView,
   StyledText,
   StyledView,
 } from "@components/styled";
 
 import { ExploreStackParamList } from "@navigation/userTab";
 import { StackScreenProps } from "@react-navigation/stack";
-import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
+import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
 import { useMemo } from "react";
 
 export default function CityScreen({
@@ -27,16 +26,14 @@ export default function CityScreen({
     });
   };
 
-  const kota = useFirestore<f_kota>(FIRESTORE_ENTITY.kota.key, {
-    id: param?.cityId,
-  });
+  const kota = useDocument<f_kota>(FIRESTORE_ENTITY.kota.key, param?.cityId);
 
   const wisataMemo = useMemo(() => {
-    if (!kota.getDocument?.data()?.wisata) {
+    if (!kota?.data()?.wisata) {
       return [];
     }
 
-    const data = kota.getDocument?.data()?.wisata;
+    const data = kota?.data()?.wisata;
     const res: f_kota__wisata[] = [];
 
     for (const key in data) {
@@ -47,7 +44,6 @@ export default function CityScreen({
   }, [kota]);
 
   const ListRenderer: ListRenderItem<f_kota__wisata> = ({ item }) => {
-    // console.log("file: city.tsx:35 ~ item", item);
     return (
       <StyledPressable
         onPress={() => toQuestScreen(item?.id || "")}
@@ -73,10 +69,10 @@ export default function CityScreen({
 
   return (
     <StyledView className="flex-1 p-2">
-      {kota.getDocument?.data() && (
+      {kota?.data() && (
         <>
           <StyledText className="text-lg font-semibold mb-3">
-            Jelajahi Objek wisata {kota.getDocument?.data()?.nama}
+            Jelajahi Objek wisata {kota?.data()?.nama}
           </StyledText>
 
           <StyledView className="pb-5">

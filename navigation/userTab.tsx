@@ -48,7 +48,7 @@ export type ExploreStackParamList = {
   Explore: undefined;
   Quest: undefined;
   Detail: { cityId: string; wisataId: string };
-  Camera: undefined;
+  Camera: { cityId: string; wisataId: string };
   City: { cityId: string };
 };
 

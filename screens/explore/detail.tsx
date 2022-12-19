@@ -10,7 +10,10 @@ import { FlatList, ListRenderItem, ScrollView } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
 import { useMemo } from "react";
-import { FIRESTORE_ENTITY, useFirestore } from "@utils/useFirestore";
+import {
+  FIRESTORE_ENTITY,
+  useDocument,
+} from "@utils/useFirestore";
 
 export default function ExploreDetailScreen({
   navigation,
@@ -18,16 +21,14 @@ export default function ExploreDetailScreen({
 }: StackScreenProps<ExploreStackParamList, "Detail">) {
   const param = route.params;
 
-  const kota = useFirestore<f_kota>(FIRESTORE_ENTITY.kota.key, {
-    id: param?.cityId,
-  });
+  const kota = useDocument<f_kota>(FIRESTORE_ENTITY.kota.key, param?.cityId);
 
   const wisataMemo = useMemo<f_kota__wisata>(() => {
-    if (!kota.getDocument?.data()?.wisata) {
+    if (!kota?.data()?.wisata) {
       return { deskripsi: "", gambar: [""], nama: "" };
     }
 
-    const data = kota.getDocument?.data()?.wisata[param?.wisataId];
+    const data = kota?.data()?.wisata[param?.wisataId];
     if (data) {
       return data;
     }
@@ -42,7 +43,12 @@ export default function ExploreDetailScreen({
   );
 
   const toCamera = () => {
-    navigation.navigate("Camera");
+    if (wisataMemo) {
+      navigation.navigate("Camera", {
+        cityId: param?.cityId,
+        wisataId: wisataMemo?.id || "",
+      });
+    }
   };
 
   return (

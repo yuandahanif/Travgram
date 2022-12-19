@@ -24,6 +24,8 @@ import { useStorage } from "@utils/useStorage";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useAuthentication } from "@utils/useAuthentication";
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { StackScreenProps } from "@react-navigation/stack";
+import { ExploreStackParamList } from "@navigation/userTab";
 
 const { uploadByte } = useStorage();
 
@@ -62,8 +64,12 @@ const CameraPreview = ({
   );
 };
 
-export default function CameraScreen({}) {
+export default function CameraScreen({
+  route,
+}: StackScreenProps<ExploreStackParamList, "Camera">) {
+  const param = route.params;
   let camera: Camera;
+
   const { user } = useAuthentication();
 
   const [type, setType] = useState(CameraType.back);
@@ -107,15 +113,15 @@ export default function CameraScreen({}) {
           fileName: fileId,
           file: blob,
         });
-        console.log('file: camera.tsx:110 ~ const__uploadPicture= ~ up', up)
+        console.log("file: camera.tsx:110 ~ const__uploadPicture= ~ up", up);
 
         if (user?.uid) {
           addDoc(collection(db, "user-upload"), {
             file_id: up.metadata.fullPath,
-            kota_id: "",
+            kota_id: param.cityId,
             like: 0,
             user_id: user.uid,
-            wisata_id: "",
+            wisata_id: param.wisataId,
           })
             .then(() => {
               Toast.show({
