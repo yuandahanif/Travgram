@@ -39,6 +39,7 @@ type f_user_upload = {
   file_id: string;
   kota_id: string;
   like: number;
+  file_url: string;
   wisata_id: string;
   quest_id: string;
   user_id: string;

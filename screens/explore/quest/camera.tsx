@@ -20,16 +20,12 @@ import {
 import { useStorage } from "@utils/useStorage";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useAuthentication } from "@utils/useAuthentication";
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
 import { f_user_upload } from "types/firestore";
 
-const { uploadByte } = useStorage();
+const { uploadByte, getUrl } = useStorage();
 
 const CameraPreview = ({
   photo,
@@ -115,17 +111,18 @@ export default function CameraScreen({
           file: blob,
         });
 
+        const url = await getUrl(up.ref.fullPath);
         const data: f_user_upload = {
           file_id: up.metadata.fullPath,
           kota_id: param.cityId,
           like: 0,
+          file_url: url,
           user_id: user?.uid || "no user id",
           quest_id: param.questId,
           is_accepted: false,
           wisata_id: param.wisataId,
           waktu_unggah: serverTimestamp(),
         };
-        console.log('file: camera.tsx:128 ~ const__uploadPicture= ~ data', data)
 
         if (user?.uid) {
           addDoc(collection(db, "user-upload"), data)

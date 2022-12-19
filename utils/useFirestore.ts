@@ -97,9 +97,8 @@ export function useFQuery<T>(
     wheres.push(where(s.fieldPath, s.opStr, s.value));
   });
 
-  const q = query(docRef, ...wheres);
-
   useEffect(() => {
+    const q = query(docRef, ...wheres);
     const unsubscribe = onSnapshot(
       q,
       (data) => {

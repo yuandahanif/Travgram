@@ -14,6 +14,7 @@ import { ExploreStackParamList } from "@navigation/userTab";
 import { StackScreenProps } from "@react-navigation/stack";
 import { FIRESTORE_ENTITY, useCollection } from "@utils/useFirestore";
 import { QueryDocumentSnapshot } from "firebase/firestore";
+import { f_kota } from "types/firestore";
 
 export default function ExploreScreen({
   navigation,

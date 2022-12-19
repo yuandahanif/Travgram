@@ -12,6 +12,7 @@ import { ExploreStackParamList } from "@navigation/userTab";
 import { StackScreenProps } from "@react-navigation/stack";
 import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
 import { useMemo } from "react";
+import { f_kota, f_kota__wisata } from "types/firestore";
 
 export default function CityScreen({
   navigation,
