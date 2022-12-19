@@ -1,8 +1,6 @@
 import {
   StyledImage,
-  StyledImageBackground,
   StyledPressable,
-  StyledSafeAreaView,
   StyledText,
   StyledView,
 } from "@components/styled";
@@ -12,6 +10,8 @@ import { ExploreStackParamList } from "@navigation/userTab";
 import { useMemo } from "react";
 import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+
+import { Ionicons } from "@expo/vector-icons";
 
 export default function ExploreDetailScreen({
   navigation,
@@ -71,17 +71,24 @@ export default function ExploreDetailScreen({
           />
         </StyledView>
 
+        <StyledView className="mx-2 py-4 flex-row justify-evenly">
+          <StyledPressable className="items-center" onPress={toCamera}>
+            <Ionicons name="md-camera-outline" size={24} color="black" />
+            <StyledText>Kamera</StyledText>
+          </StyledPressable>
+          <StyledPressable className="items-center" onPress={toCamera}>
+            <Ionicons name="list-outline" size={24} color="black" />
+            <StyledText>Quest</StyledText>
+          </StyledPressable>
+          <StyledPressable className="items-center" onPress={toCamera}>
+            <Ionicons name="compass-outline" size={24} color="black" />
+            <StyledText>Rute</StyledText>
+          </StyledPressable>
+        </StyledView>
+
         <StyledView className="mx-2">
           <StyledText className=" text-base text-justify">
             {wisataMemo.deskripsi}
-          </StyledText>
-        </StyledView>
-
-        <StyledView className="w-full">
-          <StyledText className=" text-base text-justify">
-            <StyledPressable onPress={toCamera}>
-              <StyledText>Kamera</StyledText>
-            </StyledPressable>
           </StyledText>
         </StyledView>
       </ScrollView>
