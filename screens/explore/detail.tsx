@@ -50,7 +50,22 @@ export default function ExploreDetailScreen({
       Toast.show({
         type: "error",
         text1: "Error",
-        text2: "Gagal Membuka kamera.",
+        text2: "Gagal Membuka Quest.",
+      });
+    }
+  };
+
+  const toRoute = () => {
+    if (wisataMemo) {
+      navigation.navigate("Route", {
+        cityId: param?.cityId,
+        wisataId: param?.wisataId,
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Gagal Membuka Rute.",
       });
     }
   };
@@ -95,7 +110,7 @@ export default function ExploreDetailScreen({
             <Ionicons name="list-outline" size={24} color="black" />
             <StyledText className="text-xs">Quest</StyledText>
           </StyledPressable>
-          <StyledPressable className="items-center" onPress={toCamera}>
+          <StyledPressable className="items-center" onPress={toRoute}>
             <Ionicons name="compass-outline" size={24} color="black" />
             <StyledText className="text-xs">Rute</StyledText>
           </StyledPressable>

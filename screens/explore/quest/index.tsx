@@ -4,7 +4,7 @@ import {
   StyledText,
   StyledView,
 } from "@components/styled";
-import { FlatList, ListRenderItem, ScrollView } from "react-native";
+import { FlatList, ListRenderItem } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
 import { useMemo } from "react";
@@ -22,7 +22,7 @@ export default function ExploreQuestScreen({
   const kota = useDocument<f_kota>(FIRESTORE_ENTITY.kota.key, param?.cityId);
 
   const questMemo = useMemo<f_quest[]>(() => {
-    if (!kota?.data()?.wisata[param?.wisataId]?.quests == undefined) {
+    if (!kota?.data()?.wisata[param?.wisataId]?.quests) {
       return [];
     }
 
@@ -38,7 +38,7 @@ export default function ExploreQuestScreen({
 
   const ListRenderer: ListRenderItem<f_quest> = ({ item }) => (
     <StyledView
-      className={`overflow-hidden mr-2 mb-4 flex-row justify-between items-center`}
+      className={`overflow-hidden mr-2 mb-4 flex-row justify-between items-center h-28`}
     >
       <StyledView className="rounded-md overflow-hidden">
         <StyledImage
@@ -47,9 +47,12 @@ export default function ExploreQuestScreen({
         />
       </StyledView>
 
-      <StyledView className="items-start justify-start flex-1 h-full bg-red-100">
+      <StyledView className="items-start justify-start flex-1 h-full ml-2">
         <StyledText className="text-black text-lg font-bold">
           {item.nama}
+        </StyledText>
+        <StyledText className=" text-base text-justify">
+          {item.deskripsi}
         </StyledText>
       </StyledView>
 

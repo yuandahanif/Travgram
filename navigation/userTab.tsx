@@ -22,6 +22,7 @@ import AboutUsScreen from "@screens/profile/setting/tentangkami";
 import CityScreen from "@screens/explore/city";
 import EditProfileScreen from "@screens/profile/setting/edit";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import ExploreTrackScreen from "@screens/explore/route";
 
 export type ProfileDrawerList = {
   Profile: undefined;
@@ -52,6 +53,7 @@ const ProfileDrawer = () => {
 
 export type ExploreStackParamList = {
   Explore: undefined;
+  Route: { cityId: string; wisataId: string };
   Quest: { cityId: string; wisataId: string };
   Detail: { cityId: string; wisataId: string };
   Camera: { cityId: string; wisataId: string };
@@ -80,6 +82,7 @@ const ExploreStack = () => {
         component={CityScreen}
         options={{ title: "Kota" }}
       />
+      <Stack.Screen name="Route" component={ExploreTrackScreen} />
       <Stack.Screen name="Quest" component={QuestScreen} />
       <Stack.Screen
         name="Camera"
