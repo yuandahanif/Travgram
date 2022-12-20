@@ -122,6 +122,18 @@ export default function ExploreGalleryScreen({
                         {showFormattedDate(g.waktu_unggah.toDate())}
                       </StyledText>
                     </StyledView>
+                    <StyledView
+                      className="px-2 pb-2 w-full flex-row"
+                      style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
+                    >
+                      <StyledText className="text-white">
+                        {(kota?.data() &&
+                          kota?.data()?.wisata[g.wisata_id]&&
+                          kota?.data()?.wisata[g.wisata_id]?.quests[g.quest_id]
+                            .nama) ||
+                          ""}
+                      </StyledText>
+                    </StyledView>
                   </StyledView>
                 </StyledImageBackground>
               </StyledView>
