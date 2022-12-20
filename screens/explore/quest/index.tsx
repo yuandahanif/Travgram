@@ -66,7 +66,7 @@ export default function ExploreQuestScreen({
         />
       </StyledView>
 
-      <StyledView className="items-start justify-start flex-1 h-full ml-2">
+      <StyledView className="items-start justify-start flex-1 h-full mx-2">
         <StyledText className="text-black text-lg font-bold">
           {item.nama}
         </StyledText>

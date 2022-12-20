@@ -17,7 +17,6 @@ import {
 import { f_kota, f_pengguna, f_user_upload } from "types/firestore";
 import showFormattedDate from "@utils/dateUtil";
 import { Ionicons } from "@expo/vector-icons";
-import { COLORS } from "@config/constant";
 
 const MyGallery = ({
   userId,
@@ -77,14 +76,22 @@ const MyGallery = ({
                 style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
               >
                 <StyledText className="text-white">
-                  {kota && kota?.wisata[g.wisata_id].nama}
+                  {kota?.wisata[g.wisata_id].nama}
                 </StyledText>
                 <StyledText className="ml-auto text-white">
                   {showFormattedDate(g.waktu_unggah.toDate())}
                 </StyledText>
               </StyledView>
+
+              {/* <StyledView
+                className="px-2 pb-2 w-full justify-end flex-row items-center"
+                style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
+              >
+                <StyledText>aaa</StyledText>
+              </StyledView> */}
+
               <StyledView
-                className="px-2 pb-2 w-full flex-row items-center"
+                className="px-2 pb-2 w-full justify-end flex-row items-center"
                 style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
               >
                 {!g.is_accepted && (
@@ -95,7 +102,7 @@ const MyGallery = ({
                       color="rgb(156,163,175)"
                     />
                     <StyledText className="text-gray-400 ml-1">
-                      Sedang dalam peninjauan.
+                      Sedang dalam peninjauan
                     </StyledText>
                   </>
                 )}
