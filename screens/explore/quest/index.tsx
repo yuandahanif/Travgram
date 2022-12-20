@@ -56,7 +56,6 @@ export default function ExploreQuestScreen({
   };
 
   const ListRenderer: ListRenderItem<f_quest> = ({ item }) => {
-    console.log("file: index.tsx:125 ~ item", item);
     return (
       <StyledView
         className={`overflow-hidden mr-2 mb-4 flex-row justify-between items-center h-28`}
@@ -76,7 +75,7 @@ export default function ExploreQuestScreen({
             {item.deskripsi}
           </StyledText>
           <StyledText className=" text-sm text-justify">
-            Petunjuk: {item?.petunjuk != undefined && item?.petunjuk?.join(" ")}
+            Petunjuk: {item?.petunjuk != undefined && item?.petunjuk?.join(", ")}
           </StyledText>
         </StyledView>
 
