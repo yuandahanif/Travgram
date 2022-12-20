@@ -91,7 +91,7 @@ export function useFQuery<T>(
   statements: {
     fieldPath: string | FieldPath;
     opStr: WhereFilterOp;
-    value: string | DocumentReference;
+    value: string | DocumentReference | boolean | number;
   }[],
   orderStatement?: {
     fieldPath: string | FieldPath;

@@ -98,7 +98,7 @@ export default function ExploreQuestScreen({
         <FlatList
           data={questMemo}
           renderItem={ListRenderer}
-          keyExtractor={(item) => `${item}`}
+          keyExtractor={(item) => `${item.id}`}
           ListEmptyComponent={() => (
             <StyledView className="flex-1 items-center">
               <StyledImage

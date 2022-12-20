@@ -140,6 +140,7 @@ export default function UserTab() {
             name="Gift"
             component={GiftScreen}
             options={{
+              tabBarLabel: "Hadiah",
               tabBarIcon: ({ color, size }) => (
                 <Ionicons name="gift-outline" color={color} size={size} />
               ),
