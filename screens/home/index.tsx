@@ -4,7 +4,7 @@ import { COLORS } from "@config/constant";
 import SearchHeader from "@components/header/SearchBar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import containerStyle from "@styles/container.style";
-import textStyle, { textStyle1 } from "@styles/text.style";
+import textStyle from "@styles/text.style";
 import { ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Modal } from "react-native";
@@ -122,9 +122,6 @@ export default function HomeScreen({
       <SearchHeader />
 
       <ScrollView>
-
-
-
         <PointCard NavigatetoGift={toGiftScreen} />
 
         <StyledView
@@ -142,9 +139,9 @@ export default function HomeScreen({
                 // nama: "Tugu Jogja",
                 link: "https://img.okezone.com/content/2021/02/11/406/2360355/wow-wisata-dalam-negeri-diskon-hingga-95-bulan-ini-cek-link-promo-mister-aladin-di-sini-ZXw5NMluks.JPG",
               },
-
             ].map((data) => (
-              <StyledImageBackground className="rounded-lg overflow-hidden"
+              <StyledImageBackground
+                className="rounded-lg overflow-hidden"
                 source={{
                   uri: data.link,
                 }}
@@ -166,7 +163,6 @@ export default function HomeScreen({
                     {data.nama}
                   </StyledText>
                 </StyledView> */}
-
               </StyledImageBackground>
             ))}
           </ScrollView>
@@ -196,7 +192,8 @@ export default function HomeScreen({
                 link: "https://jakarta-tourism.sgp1.cdn.digitaloceanspaces.com/images/article/8437415341664213099.jpg",
               },
             ].map((data) => (
-              <StyledImageBackground className="rounded-lg overflow-hidden"
+              <StyledImageBackground
+                className="rounded-lg overflow-hidden"
                 source={{
                   uri: data.link,
                 }}
@@ -218,7 +215,6 @@ export default function HomeScreen({
                     {data.nama}
                   </StyledText>
                 </StyledView>
-
               </StyledImageBackground>
             ))}
           </ScrollView>
@@ -248,7 +244,8 @@ export default function HomeScreen({
                 link: "https://jakarta-tourism.sgp1.cdn.digitaloceanspaces.com/images/article/8437415341664213099.jpg",
               },
             ].map((data) => (
-              <StyledImageBackground className="rounded-lg overflow-hidden"
+              <StyledImageBackground
+                className="rounded-lg overflow-hidden"
                 source={{
                   uri: data.link,
                 }}
@@ -270,7 +267,6 @@ export default function HomeScreen({
                     {data.nama}
                   </StyledText>
                 </StyledView>
-
               </StyledImageBackground>
             ))}
           </ScrollView>
@@ -329,7 +325,6 @@ export default function HomeScreen({
             </StyledView>
           </StyledView>
         </Modal>
-
       </ScrollView>
       <TouchableOpacity
         onPress={() => setModalVisible(true)}

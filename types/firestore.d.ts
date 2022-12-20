@@ -34,6 +34,7 @@ type f_pengguna = {
   nama: string;
   nama_pengguna: string;
   no_hp: string;
+  total_poin?: number;
 };
 
 type f_user_upload = {

@@ -3,26 +3,26 @@ import { FlatList, ListRenderItem, ScrollView } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ProfileDrawerList } from "@navigation/userTab";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { FIRESTORE_ENTITY, useFQuery } from "@utils/useFirestore";
-import { f_user_upload } from "types/firestore";
+import { FIRESTORE_ENTITY, useDocRef, useFQuery } from "@utils/useFirestore";
+import { f_pengguna, f_user_upload } from "types/firestore";
 import { useAuthentication } from "@utils/useAuthentication";
 
 export default function ProfileGalleryScreen({
   navigation,
   route,
 }: StackScreenProps<ProfileDrawerList, "Gallery">) {
-  const { user } = useAuthentication();
+  const { user, extra } = useAuthentication();
+
+  const penggunaRef = useDocRef<f_pengguna>(
+    FIRESTORE_ENTITY.pengguna.key,
+    extra?.uid || ""
+  );
 
   const gambar = useFQuery<f_user_upload>(FIRESTORE_ENTITY["user-upload"].key, [
-    // {
-    //   fieldPath: "user_id",
-    //   opStr: "==",
-    //   value: user?.uid || "",
-    // },
     {
-      fieldPath: "wisata_id",
+      fieldPath: "user_id",
       opStr: "==",
-      value: "1g23i1g23g1ig3g43yj3h4",
+      value: penggunaRef,
     },
   ]);
 
@@ -30,12 +30,25 @@ export default function ProfileGalleryScreen({
     const gs: f_user_upload[] = [];
 
     gambar?.docs.forEach((g) => {
-      console.log("file: gallery.tsx:37 ~ gambar.forEach ~ g.data()", g.data());
+      console.log(
+        "file: gallery.tsx:35 ~ gambar?.docs.forEach ~ g.data()",
+        g.data()
+      );
       gs.push(g.data());
     });
 
     return gs;
-  }, [gambar, user]);
+  }, [gambar]);
+
+  // useEffect(() => {
+  //   if (user && gambar == undefined) {
+  //     console.log("fetching");
+
+  //     setGambar(
+
+  //     );
+  //   }
+  // }, [user]);
 
   return (
     <StyledView className="flex-1 items-center">

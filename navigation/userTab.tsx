@@ -45,7 +45,7 @@ const ProfileDrawer = () => {
       />
       <Drawer.Screen name="Setting" component={SettingScreen} />
       <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
-      <Drawer.Screen name="Gallery" component={ProfileGalleryScreen} />
+      {/* <Drawer.Screen name="Gallery" component={ProfileGalleryScreen} /> */}
       <Drawer.Screen
         name="editname"
         component={EditProfileScreen}
