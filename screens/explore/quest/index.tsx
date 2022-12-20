@@ -55,35 +55,41 @@ export default function ExploreQuestScreen({
     }
   };
 
-  const ListRenderer: ListRenderItem<f_quest> = ({ item }) => (
-    <StyledView
-      className={`overflow-hidden mr-2 mb-4 flex-row justify-between items-center h-28`}
-    >
-      <StyledView className="rounded-md overflow-hidden">
-        <StyledImage
-          source={{ uri: item.file_urls[0] }}
-          className="h-28 w-28"
-        />
-      </StyledView>
-
-      <StyledView className="items-start justify-start flex-1 h-full mx-2">
-        <StyledText className="text-black text-lg font-bold">
-          {item.nama}
-        </StyledText>
-        <StyledText className=" text-base text-justify">
-          {item.deskripsi}
-        </StyledText>
-      </StyledView>
-
-      <StyledPressable
-        className="items-center"
-        onPress={() => toCamera(item.id || "")}
+  const ListRenderer: ListRenderItem<f_quest> = ({ item }) => {
+    console.log("file: index.tsx:125 ~ item", item);
+    return (
+      <StyledView
+        className={`overflow-hidden mr-2 mb-4 flex-row justify-between items-center h-28`}
       >
-        <Ionicons name="md-camera-outline" size={24} color="black" />
-        <StyledText className="text-xs">Kamera</StyledText>
-      </StyledPressable>
-    </StyledView>
-  );
+        <StyledView className="rounded-md overflow-hidden">
+          <StyledImage
+            source={{ uri: item.file_urls[0] }}
+            className="h-28 w-28"
+          />
+        </StyledView>
+
+        <StyledView className="items-start justify-start flex-1 h-full mx-2">
+          <StyledText className="text-black text-lg font-bold">
+            {item.nama}
+          </StyledText>
+          <StyledText className=" text-base text-justify">
+            {item.deskripsi}
+          </StyledText>
+          <StyledText className=" text-sm text-justify">
+            Petunjuk: {item?.petunjuk != undefined && item?.petunjuk?.join(" ")}
+          </StyledText>
+        </StyledView>
+
+        <StyledPressable
+          className="items-center"
+          onPress={() => toCamera(item.id || "")}
+        >
+          <Ionicons name="md-camera-outline" size={24} color="black" />
+          <StyledText className="text-xs">Kamera</StyledText>
+        </StyledPressable>
+      </StyledView>
+    );
+  };
 
   return (
     <StyledView className="flex-1 w-full">
