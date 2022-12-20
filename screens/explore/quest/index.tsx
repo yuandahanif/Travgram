@@ -13,12 +13,14 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import { Ionicons } from "@expo/vector-icons";
 import { f_kota, f_quest } from "types/firestore";
+import { useAuthentication } from "@utils/useAuthentication";
 
 export default function ExploreQuestScreen({
   navigation,
   route,
 }: StackScreenProps<ExploreStackParamList, "Quest">) {
   const param = route.params;
+  const { user } = useAuthentication();
 
   const kota = useDocument<f_kota>(FIRESTORE_ENTITY.kota.key, param?.cityId);
   const questMemo = useMemo<f_quest[]>(() => {
@@ -37,11 +39,12 @@ export default function ExploreQuestScreen({
   }, [kota]);
 
   const toCamera = (questId: string) => {
-    if (questMemo) {
+    if (questMemo && user?.uid) {
       navigation.navigate("Camera", {
         cityId: param?.cityId,
         wisataId: param?.wisataId,
         questId: questId,
+        userId: user?.uid,
       });
     } else {
       Toast.show({
@@ -84,11 +87,11 @@ export default function ExploreQuestScreen({
 
   return (
     <StyledView className="flex-1 w-full">
-      <StyledText className="mx-2 mt-2">
+      <StyledText className="mx-2 mt-2 text-lg ">
         Objek yang tidak boleh anda lewatkan di:
       </StyledText>
       <StyledText className="mx-2 text-black text-2xl font-bold">
-        {kota?.data()?.nama}
+        {kota?.data()?.wisata[param?.wisataId].nama}
       </StyledText>
 
       <StyledView className="my-4 mx-2">
@@ -96,6 +99,17 @@ export default function ExploreQuestScreen({
           data={questMemo}
           renderItem={ListRenderer}
           keyExtractor={(item) => `${item}`}
+          ListEmptyComponent={() => (
+            <StyledView className="flex-1 items-center">
+              <StyledImage
+                className="w-24 h-24 mb-3"
+                source={{
+                  uri: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/350/worried-face_1f61f.png",
+                }}
+              />
+              <StyledText>Tidak ada quest untuk objek wisata ini.</StyledText>
+            </StyledView>
+          )}
         />
       </StyledView>
 

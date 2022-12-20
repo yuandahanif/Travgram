@@ -24,6 +24,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
 import { f_user_upload } from "types/firestore";
+import { FIRESTORE_ENTITY, useDocRef } from "@utils/useFirestore";
 
 const { uploadByte, getUrl } = useStorage();
 
@@ -112,12 +113,12 @@ export default function CameraScreen({
         });
 
         const url = await getUrl(up.ref.fullPath);
-        const data: f_user_upload = {
+        const data = {
           file_id: up.metadata.fullPath,
-          kota_id: param.cityId,
+          kota_id: useDocRef(FIRESTORE_ENTITY.kota.key, param.cityId),
           like: 0,
           file_url: url,
-          user_id: user?.uid || "no user id",
+          user_id: useDocRef(FIRESTORE_ENTITY.pengguna.key, param?.userId),
           quest_id: param.questId,
           is_accepted: false,
           wisata_id: param.wisataId,

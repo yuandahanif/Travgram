@@ -13,19 +13,13 @@ export default function ProfileScreen({
 }: DrawerScreenProps<ProfileDrawerList>) {
   const { user, extra } = useAuthentication();
 
-
   const openDrawer = () => {
-    navigation.openDrawer()
-  }
-
-
-  const toAboutScreen = () => {
-    navigation.navigate('AboutUs')
-  }
+    navigation.openDrawer();
+  };
 
   const toedirscreen = () => {
-    navigation.navigate('editname')
-  }
+    navigation.navigate("editname");
+  };
 
   return (
     <StyledSafeAreaView className="flex-1 justify-center items-center">
@@ -40,29 +34,21 @@ export default function ProfileScreen({
         />
       )}
 
-      <StyledText className="mt-4 text-base">
-        {extra?.nama_pengguna}
-      </StyledText>
+      <StyledText className="mt-4 text-base">{extra?.nama_pengguna}</StyledText>
 
-      <StyledText className="mt-4 text-base">
-        ikan
-      </StyledText>
-
-      <StyledText className="mt-4 text-base">
-        Pengaturan
-      </StyledText>
-
-      <StyledPressable className="bg-lime-500 px-8 py-2 rounded-lg mt-5" onPress={openDrawer}>
+      <StyledPressable
+        className="bg-lime-500 px-8 py-2 rounded-lg mt-5"
+        onPress={openDrawer}
+      >
         <StyledText>Setting</StyledText>
       </StyledPressable>
 
-      <StyledPressable className="bg-lime-500 px-8 py-2 rounded-lg mt-5" onPress={toedirscreen}>
+      <StyledPressable
+        className="bg-lime-500 px-8 py-2 rounded-lg mt-5"
+        onPress={toedirscreen}
+      >
         <StyledText>Edit Profille</StyledText>
       </StyledPressable>
-
-
-
     </StyledSafeAreaView>
-
   );
 }

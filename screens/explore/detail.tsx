@@ -13,18 +13,26 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import { Ionicons } from "@expo/vector-icons";
 import { f_kota, f_kota__wisata } from "types/firestore";
+import { useAuthentication } from "@utils/useAuthentication";
 
 export default function ExploreDetailScreen({
   navigation,
   route,
 }: StackScreenProps<ExploreStackParamList, "Detail">) {
   const param = route.params;
+  const { user } = useAuthentication();
 
   const kota = useDocument<f_kota>(FIRESTORE_ENTITY.kota.key, param?.cityId);
 
   const wisataMemo = useMemo<f_kota__wisata>(() => {
     if (!kota?.data()?.wisata) {
-      return { deskripsi: "", gambar: [""], nama: "" };
+      return {
+        deskripsi: "",
+        gambar: [
+          "https://safebooru.org//images/4041/5535c37fb16e207227e7360a9feb1b0614343642.jpg",
+        ],
+        nama: "",
+      };
     }
 
     const data = kota?.data()?.wisata[param?.wisataId];
@@ -32,7 +40,13 @@ export default function ExploreDetailScreen({
       return data;
     }
 
-    return { deskripsi: "", gambar: [""], nama: "" };
+    return {
+      deskripsi: "",
+      gambar: [
+        "https://safebooru.org//images/4041/5535c37fb16e207227e7360a9feb1b0614343642.jpg",
+      ],
+      nama: "",
+    };
   }, [kota]);
 
   const ListRenderer: ListRenderItem<string> = ({ item }) => (
@@ -72,16 +86,17 @@ export default function ExploreDetailScreen({
   };
 
   const toGallery = () => {
-    if (wisataMemo) {
+    if (wisataMemo && user?.uid) {
       navigation.navigate("Gallery", {
         cityId: param?.cityId,
         wisataId: param?.wisataId,
+        userId: user?.uid,
       });
     } else {
       Toast.show({
         type: "error",
         text1: "Error",
-        text2: "Gagal Membuka kamera.",
+        text2: "Gagal Membuka Gallery.",
       });
     }
   };

@@ -11,8 +11,9 @@ import {
   where,
   FieldPath,
   WhereFilterOp,
-  getDocs,
   QueryConstraint,
+  orderBy,
+  OrderByDirection,
 } from "firebase/firestore";
 import app from "@config/firebase";
 import { useEffect, useState } from "react";
@@ -30,6 +31,12 @@ export const FIRESTORE_ENTITY = {
 };
 
 const db = getFirestore(app);
+
+export function useDocRef<T>(entity: string, id: string) {
+  const docRef = doc(db, entity, id) as DocumentReference<T>;
+
+  return docRef;
+}
 
 export function useCollection<T>(entity: string) {
   const cols = collection(db, entity) as CollectionReference<T>;
@@ -84,8 +91,12 @@ export function useFQuery<T>(
   statements: {
     fieldPath: string | FieldPath;
     opStr: WhereFilterOp;
-    value: string;
-  }[]
+    value: string | DocumentReference;
+  }[],
+  orderStatement?: {
+    fieldPath: string | FieldPath;
+    directionStr?: OrderByDirection;
+  }
 ) {
   const wheres: QueryConstraint[] = [];
   const docRef = collection(db, entity) as CollectionReference<T>;
@@ -93,12 +104,19 @@ export function useFQuery<T>(
     undefined
   );
 
-  statements.forEach((s) => {
-    wheres.push(where(s.fieldPath, s.opStr, s.value));
-  });
-
   useEffect(() => {
+    if (orderStatement) {
+      wheres.push(
+        orderBy(orderStatement.fieldPath, orderStatement.directionStr)
+      );
+    }
+
+    statements.forEach((s) => {
+      wheres.push(where(s.fieldPath, s.opStr, s.value));
+    });
+
     const q = query(docRef, ...wheres);
+
     const unsubscribe = onSnapshot(
       q,
       (data) => {

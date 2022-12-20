@@ -24,12 +24,14 @@ import EditProfileScreen from "@screens/profile/setting/edit";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ExploreTrackScreen from "@screens/explore/route";
 import ExploreGalleryScreen from "@screens/explore/gallery";
+import ProfileGalleryScreen from "@screens/profile/gallery";
 
 export type ProfileDrawerList = {
   Profile: undefined;
   Setting: undefined;
   AboutUs: undefined;
   editname: undefined;
+  Gallery: undefined;
 };
 const Drawer = createDrawerNavigator<ProfileDrawerList>();
 
@@ -43,6 +45,7 @@ const ProfileDrawer = () => {
       />
       <Drawer.Screen name="Setting" component={SettingScreen} />
       <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
+      <Drawer.Screen name="Gallery" component={ProfileGalleryScreen} />
       <Drawer.Screen
         name="editname"
         component={EditProfileScreen}
@@ -57,8 +60,8 @@ export type ExploreStackParamList = {
   Route: { cityId: string; wisataId: string };
   Quest: { cityId: string; wisataId: string };
   Detail: { cityId: string; wisataId: string };
-  Camera: { cityId: string; wisataId: string; questId: string };
-  Gallery: { cityId: string; wisataId: string };
+  Camera: { cityId: string; wisataId: string; questId: string; userId: string };
+  Gallery: { cityId: string; wisataId: string; userId: string };
   City: { cityId: string };
 };
 

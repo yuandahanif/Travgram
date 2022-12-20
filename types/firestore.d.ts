@@ -1,4 +1,4 @@
-import { FieldValue } from "firebase/firestore";
+import { DocumentReference, FieldValue, Timestamp } from "firebase/firestore";
 
 type f_quest = {
   id?: string;
@@ -29,6 +29,7 @@ type f_kota = {
 };
 
 type f_pengguna = {
+  uid?: string;
   alamat: string;
   nama: string;
   nama_pengguna: string;
@@ -37,12 +38,12 @@ type f_pengguna = {
 
 type f_user_upload = {
   file_id: string;
-  kota_id: string;
+  kota_id: DocumentReference<f_kota>;
   like: number;
   file_url: string;
   wisata_id: string;
   quest_id: string;
-  user_id: string;
-  waktu_unggah: FieldValue;
+  user_id: DocumentReference<f_pengguna>;
+  waktu_unggah: Timestamp;
   is_accepted: boolean;
 };
