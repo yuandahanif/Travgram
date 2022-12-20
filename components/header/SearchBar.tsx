@@ -3,11 +3,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@config/constant";
 import { useNavigation } from "@react-navigation/native";
 import { StyledView } from "@components/styled";
+import { BottomTabParamList } from "@navigation/userTab";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
 interface Props {}
 
 export default function SearchHeader({}: Props) {
-  const navigation = useNavigation();
+  // const navigation = useNavigation<BottomTabScreenProps<BottomTabParamList>>();
 
   return (
     <StyledView className="flex-row bg-blue-main items-center p-3 px-10">
@@ -21,9 +23,10 @@ export default function SearchHeader({}: Props) {
         onPress={() => {
           // console.log(navigation.getParent("Explore"));
           // navigation.navigate("Camera");
+          // navigation.navigation.navigate("ProfileDrawer");
         }}
       >
-        <Ionicons name="camera-outline" size={24} color={COLORS["white"]} />
+        <Ionicons name="person-circle" color={COLORS["white"]} size={32} />
       </Pressable>
     </StyledView>
   );
