@@ -75,6 +75,7 @@ const EditProfileScreen = () => {
         <StyledText className="mr-2 text-lg">Nama :</StyledText>
         <TextInput
           value={nama}
+          maxLength={10}
           style={{ height: 40, fontSize: 18 }}
           placeholder={extra?.nama}
           onChangeText={(nama) => setnama(nama)}
@@ -85,6 +86,7 @@ const EditProfileScreen = () => {
         <StyledText className="mr-2 text-lg">Nama Pengguna :</StyledText>
         <TextInput
           value={nama_pengguna}
+          maxLength={30}
           style={{ height: 40, fontSize: 18 }}
           placeholder={extra?.nama_pengguna}
           onChangeText={(nama_pengguna) => setnama_namapengguna(nama_pengguna)}
@@ -95,6 +97,7 @@ const EditProfileScreen = () => {
         <StyledText className="mr-2 text-lg">No. Hp :</StyledText>
         <TextInput
           value={no_hp}
+          maxLength={12}
           style={{ height: 40, fontSize: 18 }}
           placeholder={extra?.no_hp}
           onChangeText={(no_hp) => setno_hp(no_hp)}
@@ -105,6 +108,7 @@ const EditProfileScreen = () => {
         <StyledText className="mr-2 text-lg">Alamat :</StyledText>
         <TextInput
           value={alamat}
+          maxLength={50}
           style={{ height: 40, fontSize: 18 }}
           placeholder={extra?.alamat}
           onChangeText={(alamat) => setalamat(alamat)}

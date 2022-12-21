@@ -57,6 +57,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         nama_pengguna: "Masukkan nama pengguna",
         no_hp: "Masukkan nomer hp.",
         alamat: "Masukkan alamat.",
+        total_poin: 0,
       };
 
       if (user) {
@@ -168,7 +169,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-    color: 'black',
+    color: "black",
     marginBottom: 10,
     paddingVertical: 12,
     paddingHorizontal: 20,

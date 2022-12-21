@@ -51,7 +51,11 @@ export default function CityScreen({
         className="flex-1 h-64 w-full rounded-lg relative overflow-hidden"
       >
         <StyledImageBackground
-          source={{ uri: item.gambar[0] }}
+          source={{
+            uri:
+              item.gambar[0] ||
+              "https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2022/09/bocchitherock_hitoricharacterpvscreenshot.png",
+          }}
           resizeMode="cover"
           className="flex-1 bg-slate-200 mb-4"
         >

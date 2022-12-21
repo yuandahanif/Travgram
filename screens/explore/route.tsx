@@ -45,9 +45,9 @@ export default function ExploreTrackScreen({
           ListEmptyComponent={() => (
             <StyledView className="flex-1 items-center">
               <StyledImage
-                className="w-24 h-24 mb-3"
+                className="w-32 h-32 mb-3"
                 source={{
-                  uri: "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/350/worried-face_1f61f.png",
+                  uri: "https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2022/09/bocchitherock_hitoricharacterpvscreenshot.png",
                 }}
               />
               <StyledText>Belum ada rute untuk objek wisata ini.</StyledText>

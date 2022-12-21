@@ -25,6 +25,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
 import { f_user_upload } from "types/firestore";
 import { FIRESTORE_ENTITY, useDocRef } from "@utils/useFirestore";
+import { Ionicons } from "@expo/vector-icons";
 
 const { uploadByte, getUrl } = useStorage();
 
@@ -211,15 +212,35 @@ export default function CameraScreen({
           }}
           ratio="16:9"
         >
-          <StyledView className="flex-row mt-auto pb-6 justify-center">
+          <StyledView className="flex-row items-center justify-evenly mt-auto pb-6">
+            <StyledTouchableOpacity
+              className="h-12 w-12 bg-white rounded-full justify-center items-center"
+              onPress={toggleCameraType}
+            >
+              <Text style={styles.text}>
+                <Ionicons name="ios-camera-outline" size={24} color="black" />
+              </Text>
+            </StyledTouchableOpacity>
+
             <StyledTouchableOpacity
               onPress={__takePicture}
-              className="h-16 w-16 bg-white rounded-full"
-            />
+              className="h-16 w-16 bg-white rounded-full justify-center items-center"
+            >
+              <Ionicons name="ios-camera-outline" size={24} color="black" />
+            </StyledTouchableOpacity>
 
-            {/* <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity> */}
+            <StyledTouchableOpacity
+              className="h-12 w-12 bg-white rounded-full justify-center items-center"
+              onPress={toggleCameraType}
+            >
+              <Text style={styles.text}>
+                <Ionicons
+                  name="camera-reverse-outline"
+                  size={24}
+                  color="black"
+                />
+              </Text>
+            </StyledTouchableOpacity>
           </StyledView>
         </Camera>
       )}

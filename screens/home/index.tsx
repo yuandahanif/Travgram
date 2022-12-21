@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { COLORS } from "@config/constant";
 import SearchHeader from "@components/header/SearchBar";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,8 +17,17 @@ import {
 } from "@components/styled";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "@navigation/userTab";
+import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
+import { f_kota, f_kota__wisata, f_pengguna } from "types/firestore";
+import { useAuthentication } from "@utils/useAuthentication";
 
-const PointCard = ({ NavigatetoGift }: { NavigatetoGift: () => void }) => {
+const PointCard = ({
+  NavigatetoGift,
+  userId,
+}: {
+  NavigatetoGift: () => void;
+  userId: string;
+}) => {
   const styles = StyleSheet.create({
     card: {
       width: "95%",
@@ -54,24 +63,31 @@ const PointCard = ({ NavigatetoGift }: { NavigatetoGift: () => void }) => {
     },
   });
 
+  const pengguna = useDocument<f_pengguna>(
+    FIRESTORE_ENTITY.pengguna.key,
+    userId
+  );
+
   return (
     <View style={styles.card}>
       <View style={styles.left}>
         <Text style={[textStyle.textWhite, styles.title]}>Poinmu</Text>
         <View style={{ flexDirection: "row" }}>
-          <Text style={[textStyle.textWhite, styles.point]}>1.234</Text>
+          <Text style={[textStyle.textWhite, styles.point]}>
+            {pengguna?.data()?.total_poin || 0}
+          </Text>
 
-          <View style={{ marginLeft: 5, position: "relative" }}>
+          {/* <View style={{ marginLeft: 5, position: "relative" }}>
             <Ionicons
               name="trending-up-outline"
               color={COLORS["green-main"]}
               size={20}
             />
-            <Text style={[textStyle.textWhite, { fontSize: 10 }]}>1.23</Text>
-          </View>
+            <Text style={[textStyle.textWhite, { fontSize: 10 }]}>0</Text>
+          </View> */}
         </View>
 
-        <Text style={[textStyle.textWhite, { fontSize: 10 }]}>Cek Riwayat</Text>
+        {/* <Text style={[textStyle.textWhite, { fontSize: 10 }]}>Cek Riwayat</Text> */}
       </View>
 
       <View style={styles.line} />
@@ -111,6 +127,8 @@ const PointCard = ({ NavigatetoGift }: { NavigatetoGift: () => void }) => {
 export default function HomeScreen({
   navigation,
 }: BottomTabScreenProps<BottomTabParamList>) {
+  const { user } = useAuthentication();
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const toGiftScreen = () => {
@@ -122,7 +140,9 @@ export default function HomeScreen({
       <SearchHeader />
 
       <ScrollView>
-        <PointCard NavigatetoGift={toGiftScreen} />
+        {user?.uid && (
+          <PointCard NavigatetoGift={toGiftScreen} userId={user?.uid} />
+        )}
 
         <StyledView
           style={{
