@@ -17,8 +17,17 @@ import {
 } from "@components/styled";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "@navigation/userTab";
-import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
-import { f_pengguna } from "types/firestore";
+import {
+  FIRESTORE_ENTITY,
+  useCollection,
+  useDocument,
+} from "@utils/useFirestore";
+import {
+  f_home_nearest,
+  f_home_popular,
+  f_kota,
+  f_pengguna,
+} from "types/firestore";
 import { useAuthentication } from "@utils/useAuthentication";
 
 const PointCard = ({
@@ -129,6 +138,14 @@ export default function HomeScreen({
 }: BottomTabScreenProps<BottomTabParamList>) {
   const { user } = useAuthentication();
 
+  const kota_populer = useCollection<f_home_popular>(
+    FIRESTORE_ENTITY.home_popular.key
+  );
+
+  const kota_nearest = useCollection<f_home_nearest>(
+    FIRESTORE_ENTITY.home_nearest.key
+  );
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const toGiftScreen = () => {
@@ -198,26 +215,13 @@ export default function HomeScreen({
           }}
         >
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {[
-              {
-                nama: "Masjid Ulil Albab UII",
-                link: "https://www.uii.ac.id/wp-content/uploads/2017/07/Ulil-Albab-UII.jpg",
-              },
-              {
-                nama: "Tugu Jogja",
-                link: "https://assets-a1.kompasiana.com/items/album/2015/07/06/tugu-yogyakarta-559a07dc0523bdd804a3117b.jpg",
-              },
-              {
-                nama: "Monas",
-                link: "https://jakarta-tourism.sgp1.cdn.digitaloceanspaces.com/images/article/8437415341664213099.jpg",
-              },
-            ].map((data) => (
+            {kota_populer?.docs.map((data) => (
               <StyledImageBackground
                 className="rounded-lg overflow-hidden"
                 source={{
-                  uri: data.link,
+                  uri: data.data().gambar,
                 }}
-                key={data.link}
+                key={data.id}
                 style={[
                   {
                     marginHorizontal: 10,
@@ -231,8 +235,11 @@ export default function HomeScreen({
                   className="p-4 mt-auto w-full"
                   style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
                 >
+                  <StyledText className="text-right text-xl text-white">
+                    {data.data().nama}
+                  </StyledText>
                   <StyledText className="text-right text-white">
-                    {data.nama}
+                    {data.data().kota}
                   </StyledText>
                 </StyledView>
               </StyledImageBackground>
@@ -250,26 +257,13 @@ export default function HomeScreen({
           }}
         >
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {[
-              {
-                nama: "Masjid Ulil Albab UII",
-                link: "https://www.uii.ac.id/wp-content/uploads/2017/07/Ulil-Albab-UII.jpg",
-              },
-              {
-                nama: "Tugu Jogja",
-                link: "https://assets-a1.kompasiana.com/items/album/2015/07/06/tugu-yogyakarta-559a07dc0523bdd804a3117b.jpg",
-              },
-              {
-                nama: "Monas",
-                link: "https://jakarta-tourism.sgp1.cdn.digitaloceanspaces.com/images/article/8437415341664213099.jpg",
-              },
-            ].map((data) => (
+            {kota_nearest?.docs.map((data) => (
               <StyledImageBackground
                 className="rounded-lg overflow-hidden"
                 source={{
-                  uri: data.link,
+                  uri: data.data().gambar,
                 }}
-                key={data.link}
+                key={data.id}
                 style={[
                   {
                     marginHorizontal: 10,
@@ -283,8 +277,11 @@ export default function HomeScreen({
                   className="p-4 mt-auto w-full"
                   style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}
                 >
+                  <StyledText className="text-right text-xl text-white">
+                    {data.data().nama}
+                  </StyledText>
                   <StyledText className="text-right text-white">
-                    {data.nama}
+                    {data.data().kota}
                   </StyledText>
                 </StyledView>
               </StyledImageBackground>

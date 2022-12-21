@@ -48,3 +48,14 @@ type f_user_upload = {
   waktu_unggah: Timestamp;
   is_accepted: boolean;
 };
+
+type f_home_popular = {
+  nama: string;
+  gambar: string;
+  kota: string;
+};
+type f_home_nearest = {
+  nama: string;
+  gambar: string;
+  kota: string;
+};

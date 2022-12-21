@@ -22,6 +22,12 @@ export const FIRESTORE_ENTITY = {
   kota: {
     key: "kota",
   },
+  home_popular: {
+    key: "kota_populer",
+  },
+  home_nearest: {
+    key: "kota_terdekat",
+  },
   pengguna: {
     key: "pengguna",
   },
