@@ -53,8 +53,9 @@ export default function CityScreen({
         <StyledImageBackground
           source={{
             uri:
-              item.gambar[0] ||
-              "https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2022/09/bocchitherock_hitoricharacterpvscreenshot.png",
+              item.gambar instanceof Array
+                ? item.gambar[0]
+                : "https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2022/09/bocchitherock_hitoricharacterpvscreenshot.png",
           }}
           resizeMode="cover"
           className="flex-1 bg-slate-200 mb-4"
