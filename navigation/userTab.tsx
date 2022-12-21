@@ -58,8 +58,6 @@ const ProfileDrawer = () => {
         component={ProfileScreen}
         options={{ headerShown: false }}
       />
-      {/* <Drawer.Screen name="Setting" component={SettingScreen} /> */}
-      {/* <Drawer.Screen name="Gallery" component={ProfileGalleryScreen} /> */}
       <Drawer.Screen
         name="editname"
         component={EditProfileScreen}
