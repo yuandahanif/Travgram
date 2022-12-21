@@ -15,7 +15,12 @@ import { StackScreenProps } from "@react-navigation/stack";
 
 import textStyle from "@styles/text.style";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyledView } from "@components/styled";
+import {
+  StyledPressable,
+  StyledSafeAreaView,
+  StyledText,
+  StyledView,
+} from "@components/styled";
 import { doc, setDoc } from "firebase/firestore";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
@@ -50,7 +55,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
       const data = {
         nama: user?.user.uid,
         nama_pengguna: "Masukkan nama pengguna",
-        no_hp: 'Masukkan nomer hp.',
+        no_hp: "Masukkan nomer hp.",
         alamat: "Masukkan alamat.",
       };
 
@@ -85,12 +90,14 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StyledView className="absolute w-full mx-auto bottom-24 justify-center bg-red-100">
-        <Text style={[styles.textTitle, { marginBottom: 10 }]}>Travgram</Text>
-        <Text style={[styles.textTitle, { fontSize: 26, fontWeight: "400" }]}>
+    <StyledSafeAreaView className="flex-1">
+      <StyledView className="absolute w-full mx-auto px-3 bottom-24 justify-center">
+        <StyledText className="text-6xl text-center font-bold text-cyan-400">
+          Travgram
+        </StyledText>
+        <StyledText className="mb-40 text-xl text-center font-bold text-black">
           Daftar
-        </Text>
+        </StyledText>
 
         {isLoading ? (
           <ActivityIndicator />
@@ -111,15 +118,18 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
               secureTextEntry={true}
             />
 
-            <Pressable onPress={signIn} style={styles.button}>
+            <StyledPressable
+              className="bg-cyan-400 p-3 rounded-full"
+              onPress={signIn}
+            >
               <Text style={styles.buttonText}>Daftar</Text>
-            </Pressable>
+            </StyledPressable>
 
             <View style={styles.changeScreenText}>
               <Text style={textStyle.textMain}>Sudah Punya Akun?</Text>
-              <Pressable onPress={toSignInScreen}>
+              <StyledPressable onPress={toSignInScreen}>
                 <Text style={textStyle.textBlue}> Masuk</Text>
-              </Pressable>
+              </StyledPressable>
             </View>
 
             {!!value.error && (
@@ -130,7 +140,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
           </>
         )}
       </StyledView>
-    </SafeAreaView>
+    </StyledSafeAreaView>
   );
 };
 export default SignUpScreen;
@@ -158,7 +168,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-    color: COLORS["white-o-25"],
+    color: 'black',
     marginBottom: 10,
     paddingVertical: 12,
     paddingHorizontal: 20,

@@ -18,6 +18,8 @@ import { f_kota, f_pengguna, f_user_upload } from "types/firestore";
 import showFormattedDate from "@utils/dateUtil";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const MyGallery = ({
   userId,
@@ -165,6 +167,24 @@ const AllGallery = ({
     return gs;
   }, [gambar]);
 
+  const onDoubleTap = useMemo(
+    () =>
+      Gesture.Tap()
+        .maxDuration(250)
+        .numberOfTaps(2)
+        .onEnd((_event, success) => {
+          // if (success && scaleImage.value) {
+          //   scaleImage.value = scaleImage.value * 2;
+          // }
+          Toast.show({
+            type: "error",
+            text1: "Bermasalah bro!",
+            text2: "Hidupmu bermasalah.",
+          });
+        }),
+    []
+  );
+
   return (
     <StyledView className="mx-2 mb-16 ">
       {gambarMemo.map((g) => (
@@ -177,6 +197,12 @@ const AllGallery = ({
             className="h-96 w-full"
           >
             <StyledView className="flex-1 justify-center items-center">
+              <StyledView className="bg-red-100 flex-1 w-full">
+                <GestureDetector gesture={onDoubleTap}>
+                  <StyledText className="text-white"></StyledText>
+                </GestureDetector>
+              </StyledView>
+
               <StyledView
                 className="mt-auto p-2 w-full flex-row"
                 style={{ backgroundColor: "rgba(51, 65, 85, 0.61)" }}

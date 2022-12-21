@@ -8,6 +8,12 @@ import { styles } from "@screens/auth/signUp";
 import { StackScreenProps } from "@react-navigation/stack";
 import textStyle from "@styles/text.style";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  StyledPressable,
+  StyledSafeAreaView,
+  StyledText,
+  StyledView,
+} from "@components/styled";
 
 const auth = getAuth(app);
 
@@ -42,12 +48,14 @@ export default function SignInScreen({ navigation }: StackScreenProps<any>) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.controls}>
-        <Text style={[styles.textTitle, { marginBottom: 10 }]}>Travgram</Text>
-        <Text style={[styles.textTitle, { fontSize: 26, fontWeight: "400" }]}>
+    <StyledSafeAreaView className="flex-1">
+      <StyledView className="absolute w-full mx-auto px-3 bottom-24 justify-center">
+        <StyledText className="text-6xl text-center font-bold text-cyan-400">
+          Travgram
+        </StyledText>
+        <StyledText className="mb-40 text-xl text-center font-bold text-black">
           Masuk
-        </Text>
+        </StyledText>
 
         <TextInput
           placeholder="Email"
@@ -64,9 +72,12 @@ export default function SignInScreen({ navigation }: StackScreenProps<any>) {
           secureTextEntry={true}
         />
 
-        <Pressable onPress={signIn} style={styles.button}>
+        <StyledPressable
+          className="bg-cyan-400 p-3 rounded-full"
+          onPress={signIn}
+        >
           <Text style={styles.buttonText}>Masuk</Text>
-        </Pressable>
+        </StyledPressable>
 
         <View style={styles.changeScreenText}>
           <Text style={textStyle.textMain}>Belum Punya Akun?</Text>
@@ -80,7 +91,7 @@ export default function SignInScreen({ navigation }: StackScreenProps<any>) {
             <Text>{value.error}</Text>
           </View>
         )}
-      </View>
-    </SafeAreaView>
+      </StyledView>
+    </StyledSafeAreaView>
   );
 }
