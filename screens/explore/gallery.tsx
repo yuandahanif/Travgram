@@ -245,21 +245,6 @@ export default function ExploreGalleryScreen({
     }
   }, [kota]);
 
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = () => {
-        return true;
-      };
-
-      const subscription = BackHandler.addEventListener(
-        "hardwareBackPress",
-        onBackPress
-      );
-
-      return () => subscription.remove();
-    }, [])
-  );
-
   return (
     <StyledView className="flex-1 items-center">
       <StyledView className="w-full">

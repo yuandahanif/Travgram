@@ -18,7 +18,7 @@ import {
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "@navigation/userTab";
 import { FIRESTORE_ENTITY, useDocument } from "@utils/useFirestore";
-import { f_kota, f_kota__wisata, f_pengguna } from "types/firestore";
+import { f_pengguna } from "types/firestore";
 import { useAuthentication } from "@utils/useAuthentication";
 
 const PointCard = ({
