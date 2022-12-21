@@ -28,7 +28,7 @@ export default function ProfileScreen({
       ) : (
         <StyledImage
           source={{
-            uri: "https://safebooru.org//samples/4049/sample_80dedcf6518f3d50c3d7a5073266f7fa2bb7c536.jpg?",
+            uri: "https://image.myanimelist.net/ui/5LYzTBVoS196gvYvw3zjwHP3hetS_Ytm8aI68DQbZdE",
           }}
           className="w-40 h-40 rounded-lg overflow-hidden"
         />

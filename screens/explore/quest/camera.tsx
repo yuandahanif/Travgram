@@ -65,6 +65,7 @@ const CameraPreview = ({
 
 export default function CameraScreen({
   route,
+  navigation,
 }: StackScreenProps<ExploreStackParamList, "Camera">) {
   let camera: Camera;
   const param = route.params;
@@ -76,10 +77,25 @@ export default function CameraScreen({
   const [capturedImage, setCapturedImage] =
     useState<CameraCapturedPicture | null>(null);
 
+  const toGallery = () => {
+    if (user?.uid) {
+      navigation.navigate("Gallery", {
+        cityId: param?.cityId,
+        wisataId: param?.wisataId,
+        userId: user?.uid,
+      });
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Error",
+        text2: "Gagal Membuka Gallery.",
+      });
+    }
+  };
+
   const __takePicture = async () => {
     if (!camera) return;
     const photo = await camera.takePictureAsync();
-    console.log("file: camera.tsx:60 ~ const__takePicture= ~ photo", photo);
     setCapturedImage(photo);
   };
 
@@ -134,6 +150,7 @@ export default function CameraScreen({
                 text2: "Berhasil Mengunggah gambar.",
               });
               setIsUploading(false);
+              toGallery();
             })
             .catch((error) => {
               throw new Error("error firestore");
