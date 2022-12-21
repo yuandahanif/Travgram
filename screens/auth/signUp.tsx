@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import app from "@config/firebase";
+import app, { db } from "@config/firebase";
 import { Pressable } from "react-native";
 import { useState } from "react";
 import { COLORS } from "@config/constant";
@@ -15,6 +15,9 @@ import { StackScreenProps } from "@react-navigation/stack";
 
 import textStyle from "@styles/text.style";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { StyledView } from "@components/styled";
+import { doc, setDoc } from "firebase/firestore";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 const auth = getAuth(app);
 
@@ -38,9 +41,35 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     setIsLoading(true);
 
     try {
-      await createUserWithEmailAndPassword(auth, value.email, value.password);
-      // TODO: creat data di firestore
-      navigation.navigate("Sign In");
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        value.email,
+        value.password
+      );
+
+      const data = {
+        nama: user?.user.uid,
+        nama_pengguna: "Masukkan nama pengguna",
+        no_hp: 'Masukkan nomer hp.',
+        alamat: "Masukkan alamat.",
+      };
+
+      if (user) {
+        setDoc(doc(db, "pengguna", user?.user.uid), data)
+          .then(() => {
+            navigation.navigate("Sign In");
+          })
+          .catch((error) => {
+            Toast.show({
+              type: "error",
+              text1: "Bermasalah bro!",
+              text2: "Hidupmu bermasalah.",
+            });
+            console.log(error);
+          });
+      } else {
+        alert("ERROR: uid tidak ada");
+      }
     } catch (error: any) {
       setValue({
         ...value,
@@ -57,7 +86,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.controls}>
+      <StyledView className="absolute w-full mx-auto bottom-24 justify-center bg-red-100">
         <Text style={[styles.textTitle, { marginBottom: 10 }]}>Travgram</Text>
         <Text style={[styles.textTitle, { fontSize: 26, fontWeight: "400" }]}>
           Daftar
@@ -100,7 +129,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
             )}
           </>
         )}
-      </View>
+      </StyledView>
     </SafeAreaView>
   );
 };

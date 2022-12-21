@@ -1,6 +1,6 @@
 import { StyledPressable, StyledText, StyledView } from "@components/styled";
 import React, { useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { TextInput, View } from "react-native";
 import { doc, setDoc } from "firebase/firestore";
 import app, { db } from "@config/firebase";
 import { useAuthentication } from "@utils/useAuthentication";
@@ -24,13 +24,34 @@ const EditProfileScreen = () => {
   const [alamat, setalamat] = useState("");
 
   const create = () => {
+    if (!extra) {
+      Toast.show({
+        type: "error",
+        text1: "Ups ada yang bermasalah!",
+      });
+    }
+
+    const data = {
+      nama: extra?.nama,
+      nama_pengguna: extra?.nama_pengguna,
+      no_hp: extra?.no_hp,
+      alamat: extra?.alamat,
+    };
+    if (nama != "") {
+      data.nama = nama;
+    }
+    if (nama_pengguna != "") {
+      data.nama_pengguna = nama_pengguna;
+    }
+    if (no_hp != "") {
+      data.no_hp = no_hp;
+    }
+    if (alamat != "") {
+      data.alamat = alamat;
+    }
+
     if (user?.uid) {
-      setDoc(doc(db, "pengguna", user?.uid), {
-        nama: nama,
-        nama_pengguna: nama_pengguna,
-        no_hp: no_hp,
-        alamat: alamat,
-      })
+      setDoc(doc(db, "pengguna", user?.uid), data)
         .then(() => {
           console.log("data submitted");
           Toast.show({
