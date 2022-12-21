@@ -4,10 +4,10 @@ import {
   StyledText,
   StyledView,
 } from "@components/styled";
-import { ScrollView } from "react-native";
+import { BackHandler, ScrollView } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ExploreStackParamList } from "@navigation/userTab";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   FIRESTORE_ENTITY,
   useDocRef,
@@ -17,6 +17,7 @@ import {
 import { f_kota, f_pengguna, f_user_upload } from "types/firestore";
 import showFormattedDate from "@utils/dateUtil";
 import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MyGallery = ({
   userId,
@@ -220,6 +221,21 @@ export default function ExploreGalleryScreen({
       return kota.data();
     }
   }, [kota]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        return true;
+      };
+
+      const subscription = BackHandler.addEventListener(
+        "hardwareBackPress",
+        onBackPress
+      );
+
+      return () => subscription.remove();
+    }, [])
+  );
 
   return (
     <StyledView className="flex-1 items-center">
