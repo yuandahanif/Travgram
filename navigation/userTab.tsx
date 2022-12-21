@@ -40,7 +40,7 @@ export type ProfileDrawerList = {
 const Drawer = createDrawerNavigator<ProfileDrawerList>();
 const auth = getAuth(app);
 
-function logoutScreen({}) {
+function LogoutScreen({}) {
  useEffect(() => {
   try {
     signOut(auth);
@@ -64,7 +64,7 @@ const ProfileDrawer = () => {
         options={{ title: "Edit profil" }}
       />
       <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
-      <Drawer.Screen name="Logout" component={logoutScreen} />
+      <Drawer.Screen name="Logout" component={LogoutScreen} />
     </Drawer.Navigator>
   );
 };

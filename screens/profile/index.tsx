@@ -35,6 +35,8 @@ export default function ProfileScreen({
       )}
 
       <StyledText className="mt-4 text-base">{extra?.nama_pengguna}</StyledText>
+      <StyledText className="mt-4 text-base">{extra?.no_hp}</StyledText>
+      <StyledText className="mt-4 text-base">{extra?.alamat}</StyledText>
 
       <StyledPressable
         className="bg-lime-500 px-8 py-2 rounded-lg mt-5"

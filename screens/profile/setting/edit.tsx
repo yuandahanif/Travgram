@@ -80,7 +80,7 @@ const EditProfileScreen = () => {
         <TextInput
           value={no_hp}
           style={{ height: 40, fontSize: 18 }}
-          placeholder={extra?.no_hp}
+          defaultValue={extra?.no_hp}
           onChangeText={(no_hp) => setno_hp(no_hp)}
         />
       </StyledView>
