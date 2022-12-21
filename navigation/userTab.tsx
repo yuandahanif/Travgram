@@ -24,7 +24,10 @@ import EditProfileScreen from "@screens/profile/setting/edit";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ExploreTrackScreen from "@screens/explore/route";
 import ExploreGalleryScreen from "@screens/explore/gallery";
+import { getAuth, signOut } from "firebase/auth";
+import app from "@config/firebase";
 import ProfileGalleryScreen from "@screens/profile/gallery";
+import { useEffect } from "react";
 
 export type ProfileDrawerList = {
   Profile: undefined;
@@ -32,8 +35,20 @@ export type ProfileDrawerList = {
   AboutUs: undefined;
   editname: undefined;
   Gallery: undefined;
+  Logout: undefined;
 };
 const Drawer = createDrawerNavigator<ProfileDrawerList>();
+const auth = getAuth(app);
+
+function logoutScreen({}) {
+ useEffect(() => {
+  try {
+    signOut(auth);
+  } catch (error) {}
+ }, [])
+
+ return <></>
+}
 
 const ProfileDrawer = () => {
   return (
@@ -43,14 +58,15 @@ const ProfileDrawer = () => {
         component={ProfileScreen}
         options={{ headerShown: false }}
       />
-      <Drawer.Screen name="Setting" component={SettingScreen} />
-      <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
+      {/* <Drawer.Screen name="Setting" component={SettingScreen} /> */}
       {/* <Drawer.Screen name="Gallery" component={ProfileGalleryScreen} /> */}
       <Drawer.Screen
         name="editname"
         component={EditProfileScreen}
         options={{ title: "Edit profil" }}
       />
+      <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
+      <Drawer.Screen name="Logout" component={logoutScreen} />
     </Drawer.Navigator>
   );
 };
